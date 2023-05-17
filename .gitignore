@@ -18,8 +18,8 @@ bin/
 !**/src/test/**/bin/
 
 src/main/resources/*.properties
-src/main/resources/css
-src/main/resources/js
+src/main/resources/static/css
+src/main/resources/static/js
 
 ### IntelliJ IDEA ###
 .idea
