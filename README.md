@@ -2,9 +2,7 @@
 
 <br>
 
-### 건강한 생활을 위한 습관 기록 웹 사이트
-
----
+## 건강한 생활을 위한 습관 기록 웹 사이트
 
 > **개인 프로젝트**
 >
@@ -13,19 +11,15 @@
 
 <br>
 
-### 프로젝트 간략 소개
-
----
+## 프로젝트 간략 소개
 
 매일 행할 수 있는 작은 습관들을 만들어 나가면서 "**더 나은 나**를 만들어가자"라는 취지에서 이 프로젝트를 만들게 되었습니다 :)
 
 <br>
 
-### 🔨 Stack
+## 🔨 Stack
 
----
-
-#### Environment
+### Environment
 
 ![IntelliJ](https://img.shields.io/badge/intellij-000000?style=for-the-badge&logo=&logoColor=black)
 ![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)
@@ -34,7 +28,7 @@
 
 <br>
 
-#### Development
+### Development
 
 ![Java](https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
@@ -46,7 +40,5 @@
 
 <br>
 
-### 📦 주요 기능
-
----
+## 📦 주요 기능
 
