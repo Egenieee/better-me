@@ -14,18 +14,15 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 public class UsersSaveRequestDto {
 
-    //    @NotBlank(message = "회원 아이디는 필수입니다.")
     @Length(min = 6, max = 15, message = "6 ~ 15 길이로 입력해야 합니다.")
     private String userName;
 
-    //    @NotBlank
     @Email(message = "이메일 형식을 확인해주세요.")
     @NotBlank
     private String email;
 
     private String slogan;
 
-    //    @NotBlank
     @Length(min = 6, max = 15, message = "6 ~ 15 길이로 입력해야 합니다.")
     private String password;
 
@@ -37,11 +34,11 @@ public class UsersSaveRequestDto {
         this.password = password;
     }
 
-    public Users toEntity() {
+    public Users toEntity(String encodedPassword) {
         return Users.builder()
                 .name(userName)
                 .email(email)
-                .password(password)
+                .password(encodedPassword)
                 .slogan(slogan)
                 .build();
     }
