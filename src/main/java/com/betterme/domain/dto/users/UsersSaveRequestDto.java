@@ -14,16 +14,16 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 public class UsersSaveRequestDto {
 
-    @Length(min = 6, max = 15, message = "6 ~ 15 길이로 입력해야 합니다.")
+    @Length(min = 6, max = 15, message = "사용자 ID는 6 ~ 15 길이로 입력해야 합니다.")
     private String userName;
 
     @Email(message = "이메일 형식을 확인해주세요.")
-    @NotBlank
+    @NotBlank(message = "email은 공백일 수 없습니다.")
     private String email;
 
     private String slogan;
 
-    @Length(min = 6, max = 15, message = "6 ~ 15 길이로 입력해야 합니다.")
+    @Length(min = 6, max = 15, message = "비밀번호는 6 ~ 15 길이로 입력해야 합니다.")
     private String password;
 
     @Builder
