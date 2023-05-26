@@ -33,4 +33,9 @@ public class UsersController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/users/login")
+    public String login() {
+        return "users/loginForm";
+    }
 }
