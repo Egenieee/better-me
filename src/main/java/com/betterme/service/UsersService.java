@@ -16,7 +16,7 @@ public class UsersService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void save(UsersSaveRequestDto requestDto) {
+    public Long save(UsersSaveRequestDto requestDto) {
         // 사용자 아이디 중복 체크
         if (isExistUserName(requestDto.getUserName())) {
             throw new UsersNotUniqueException("이미 등록된 사용자 입니다.");
@@ -26,7 +26,7 @@ public class UsersService {
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
         // 유저 저장
-        usersRepository.save(requestDto.toEntity(encodedPassword));
+        return usersRepository.save(requestDto.toEntity(encodedPassword)).getId();
     }
 
     private boolean isExistUserName(String userName) {
