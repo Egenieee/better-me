@@ -7,6 +7,10 @@
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
     <form role="form" action="/users/new" th:object="${usersSaveRequestDto}" method="post">
+        <div>
+            <h4 class="text-muted">회원가입</h4>
+            <p>&nbsp</p>
+        </div>
         <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
 
         <div class="form-group">
