@@ -19,6 +19,10 @@
             <h5 class="text-black-50">Email : <span th:text="${usersResponseDto.getEmail()}"></span></h5>
             <h5 class="text-black-50">Slogan : <span th:text="${usersResponseDto.getSlogan()}"></span></h5>
         </div>
+
+        <br>
+        <a class="btn btn-lg text-black-50" style="background-color: #f8d7da"
+           href="#" th:href="@{/users/{userId} (userId=${usersResponseDto.getUserId()})}">정보 수정</a>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>

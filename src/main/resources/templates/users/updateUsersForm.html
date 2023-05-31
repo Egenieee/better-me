@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <form th:action="@{/users/{userId} (userId=${usersUpdateRequestDto.getUserId()})}"
+          th:object="${usersUpdateRequestDto}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" th:field="*{userId}">
+
+        <div>
+            <h4 class="text-muted">정보 수정</h4>
+            <br>
+        </div>
+        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+
+        <div class="form-group">
+            <label th:for="userName">사용자 ID</label>
+
+            <input type="text" th:field="*{userName}" class="form-control" placeholder="사용자 ID를 입력하세요 👩🏻‍💻" readonly>
+
+        </div>
+        <div class="form-group">
+            <label th:for="email">이메일</label>
+            <input type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요 💌"
+                   th:class="${#fields.hasErrors('email')}? 'form-control fieldError' : 'form-control'">
+
+        </div>
+        <div class="form-group">
+            <label th:for="slogan">슬로건</label>
+            <input type="text" th:field="*{slogan}" class="form-control" placeholder="나만의 슬로건을 입력하세요 🫶🏻">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
