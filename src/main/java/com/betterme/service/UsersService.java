@@ -2,6 +2,7 @@ package com.betterme.service;
 
 import com.betterme.domain.dto.users.UsersResponseDto;
 import com.betterme.domain.dto.users.UsersSaveRequestDto;
+import com.betterme.domain.dto.users.UsersUpdateRequestDto;
 import com.betterme.domain.entity.Users;
 import com.betterme.exception.UsersNotUniqueException;
 import com.betterme.repository.UsersRepository;
@@ -16,6 +17,11 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private Users findUsersWithUserId(Long userId) {
+        return usersRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. user id = " + userId));
+    }
 
     private Users findUsersWithUserName(String username) {
         return usersRepository.findByUserName(username)
@@ -44,6 +50,19 @@ public class UsersService {
         Users users = findUsersWithUserName(username);
 
         return new UsersResponseDto(users);
+    }
+
+    // 회원 정보 수정 폼 생성
+    public UsersUpdateRequestDto getUpdateRequestDto(Long userId) {
+        Users users = findUsersWithUserId(userId);
+
+        return new UsersUpdateRequestDto(users.getId(), users.getUserName(), users.getSlogan(), users.getEmail());
+    }
+
+    @Transactional
+    public void update(Long userId, UsersUpdateRequestDto requestDto) {
+        Users users = findUsersWithUserId(userId);
+        users.update(requestDto.getEmail(), requestDto.getSlogan());
     }
 
 }

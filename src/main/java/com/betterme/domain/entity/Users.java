@@ -34,4 +34,9 @@ public class Users extends BaseTimeEntity {
         this.slogan = slogan;
     }
 
+    public void update(String email, String slogan) {
+        this.email = email;
+        this.slogan = slogan;
+    }
+
 }

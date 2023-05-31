@@ -2,14 +2,14 @@ package com.betterme.controller;
 
 import com.betterme.domain.dto.users.UsersResponseDto;
 import com.betterme.domain.dto.users.UsersSaveRequestDto;
+import com.betterme.domain.dto.users.UsersUpdateRequestDto;
 import com.betterme.service.UsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -48,5 +48,20 @@ public class UsersController {
         model.addAttribute("usersResponseDto", responseDto);
 
         return "users/userInformation";
+    }
+
+    @GetMapping("/users/{userId}")
+    public String getUpdateForm(@PathVariable Long userId, Model model) {
+        UsersUpdateRequestDto requestDto = usersService.getUpdateRequestDto(userId);
+        model.addAttribute("usersUpdateRequestDto", requestDto);
+
+        return "users/updateUsersForm";
+    }
+
+    @PutMapping("/users/{userId}")
+    public String update(@PathVariable Long userId, @Valid @ModelAttribute("usersUpdateRequestDto") UsersUpdateRequestDto requestDto) {
+        usersService.update(userId, requestDto);
+
+        return "redirect:/";
     }
 }
