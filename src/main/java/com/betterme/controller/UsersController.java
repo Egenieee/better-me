@@ -1,5 +1,6 @@
 package com.betterme.controller;
 
+import com.betterme.domain.dto.users.UsersResponseDto;
 import com.betterme.domain.dto.users.UsersSaveRequestDto;
 import com.betterme.service.UsersService;
 import jakarta.validation.Valid;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -37,5 +40,13 @@ public class UsersController {
     @GetMapping("/users/login")
     public String login() {
         return "users/loginForm";
+    }
+
+    @GetMapping("/users/information")
+    public String getInformation(Model model, Principal principal) {
+        UsersResponseDto responseDto = usersService.findByUserName(principal.getName());
+        model.addAttribute("usersResponseDto", responseDto);
+
+        return "users/userInformation";
     }
 }

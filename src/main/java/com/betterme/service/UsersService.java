@@ -1,6 +1,8 @@
 package com.betterme.service;
 
+import com.betterme.domain.dto.users.UsersResponseDto;
 import com.betterme.domain.dto.users.UsersSaveRequestDto;
+import com.betterme.domain.entity.Users;
 import com.betterme.exception.UsersNotUniqueException;
 import com.betterme.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,11 @@ public class UsersService {
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+
+    private Users findUsersWithUserName(String username) {
+        return usersRepository.findByUserName(username)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. user name = " + username));
+    }
 
     @Transactional
     public Long save(UsersSaveRequestDto requestDto) {
@@ -32,4 +39,11 @@ public class UsersService {
     private boolean isExistUserName(String userName) {
         return usersRepository.existsUsersByUserName(userName);
     }
+
+    public UsersResponseDto findByUserName(String username) {
+        Users users = findUsersWithUserName(username);
+
+        return new UsersResponseDto(users);
+    }
+
 }
