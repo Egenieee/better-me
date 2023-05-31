@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div class="jumbotron" style="background-color: lavenderblush !important;">
+        <h1 style="color: #ed969e">My Information</h1>
+        <br>
+        <div style="text-align: center">
+            <h5 class="text-black-50">ID : <span th:text="${usersResponseDto.getUserName()}"></span></h5>
+            <h5 class="text-black-50">Email : <span th:text="${usersResponseDto.getEmail()}"></span></h5>
+            <h5 class="text-black-50">Slogan : <span th:text="${usersResponseDto.getSlogan()}"></span></h5>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
