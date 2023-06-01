@@ -9,7 +9,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.security.Principal;
 
@@ -59,7 +62,12 @@ public class UsersController {
     }
 
     @PutMapping("/users/{userId}")
-    public String update(@PathVariable Long userId, @Valid @ModelAttribute("usersUpdateRequestDto") UsersUpdateRequestDto requestDto) {
+    public String update(@PathVariable Long userId, @Valid UsersUpdateRequestDto requestDto, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "users/updateUsersForm";
+        }
+
         usersService.update(userId, requestDto);
 
         return "redirect:/";
