@@ -9,7 +9,8 @@
     <form th:action="@{/users/{userId} (userId=${usersUpdateRequestDto.getUserId()})}"
           th:object="${usersUpdateRequestDto}" method="post">
         <input type="hidden" name="_method" value="put">
-        <input type="hidden" th:field="*{userId}">
+        <input type="hidden" id="userId" name="userId" th:value="${usersUpdateRequestDto.getUserId()}"
+               th:field="*{userId}">
 
         <div>
             <h4 class="text-muted">회원 정보 수정</h4>
@@ -35,10 +36,35 @@
         </div>
         <a href="/" role="button" class="btn btn-secondary">취소</a>
         <button type="submit" class="btn btn-primary">수정</button>
+        <a href="#" th:href="'javascript:deleteUsers('+${usersUpdateRequestDto.getUserId()}+')'"
+           class="btn btn-danger">회원 탈퇴</a>
     </form>
     <br/>
     <div th:replace="~{fragments/footer :: footer}"></div>
 </div> <!-- /container -->
-
 </body>
+<script>
+    function deleteUsers(id) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/users/" + id);
+
+        // DELETE 메서드 전송을 위한 숨겨진 필드 생성
+        var methodField = document.createElement('input');
+        methodField.setAttribute("type", "hidden");
+        methodField.setAttribute("name", "_method");
+        methodField.setAttribute("value", "DELETE");
+
+        // 폼에 숨겨진 필드 추가
+        form.appendChild(methodField);
+
+        // 폼을 문서에 추가
+        document.body.appendChild(form);
+
+        // 폼 전송
+        form.submit();
+
+        alert('회원 탈퇴가 완료되었습니다.');
+    }
+</script>
 </html>
