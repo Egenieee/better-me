@@ -4,15 +4,13 @@ import com.betterme.domain.dto.users.UsersResponseDto;
 import com.betterme.domain.dto.users.UsersSaveRequestDto;
 import com.betterme.domain.dto.users.UsersUpdateRequestDto;
 import com.betterme.service.UsersService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -69,6 +67,14 @@ public class UsersController {
         }
 
         usersService.update(userId, requestDto);
+
+        return "redirect:/";
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public String delete(@PathVariable Long userId, HttpSession session) {
+        usersService.delete(userId);
+        session.invalidate(); // 유저 삭제시 세션 삭제
 
         return "redirect:/";
     }

@@ -65,4 +65,10 @@ public class UsersService {
         users.update(requestDto.getEmail(), requestDto.getSlogan());
     }
 
+    @Transactional
+    public void delete(Long userId) {
+        Users users = findUsersWithUserId(userId);
+        usersRepository.delete(users);
+    }
+
 }
