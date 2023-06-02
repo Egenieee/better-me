@@ -56,13 +56,13 @@ public class UsersService {
     public UsersUpdateRequestDto getUpdateRequestDto(Long userId) {
         Users users = findUsersWithUserId(userId);
 
-        return new UsersUpdateRequestDto(users.getId(), users.getUserName(), users.getSlogan(), users.getEmail());
+        return new UsersUpdateRequestDto(users.getId(), users.getUserName(), users.getNickname(), users.getSlogan(), users.getEmail());
     }
 
     @Transactional
     public void update(Long userId, UsersUpdateRequestDto requestDto) {
         Users users = findUsersWithUserId(userId);
-        users.update(requestDto.getEmail(), requestDto.getSlogan());
+        users.update(requestDto.getNickname(), requestDto.getEmail(), requestDto.getSlogan());
     }
 
     @Transactional

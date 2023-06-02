@@ -9,6 +9,7 @@ public class UsersResponseDto {
 
     private final Long userId;
     private final String userName;
+    private final String nickname;
     private final String email;
     private final String slogan;
 
@@ -17,6 +18,7 @@ public class UsersResponseDto {
         this.userId = users.getId();
         this.userName = users.getUserName();
         this.email = users.getEmail();
+        this.nickname = users.getNickname();
         this.slogan = users.getSlogan();
     }
 }
