@@ -1,5 +1,6 @@
 package com.betterme.domain.dto.users;
 
+import com.betterme.domain.entity.Users;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -22,11 +23,11 @@ public class UsersUpdateRequestDto {
     private final String email;
 
     @Builder
-    public UsersUpdateRequestDto(Long userId, String userName, String nickname, String slogan, String email) {
-        this.userId = userId;
-        this.nickname = nickname;
-        this.userName = userName;
-        this.slogan = slogan;
-        this.email = email;
+    public UsersUpdateRequestDto(Users users) {
+        this.userId = users.getId();
+        this.nickname = users.getNickname();
+        this.userName = users.getUserName();
+        this.slogan = users.getSlogan();
+        this.email = users.getEmail();
     }
 }

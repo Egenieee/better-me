@@ -56,7 +56,7 @@ public class UsersService {
     public UsersUpdateRequestDto getUpdateRequestDto(Long userId) {
         Users users = findUsersWithUserId(userId);
 
-        return new UsersUpdateRequestDto(users.getId(), users.getUserName(), users.getNickname(), users.getSlogan(), users.getEmail());
+        return new UsersUpdateRequestDto(users);
     }
 
     @Transactional
