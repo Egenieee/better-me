@@ -12,17 +12,20 @@
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
     <div class="jumbotron" style="background-color: lavenderblush !important;">
-        <h1 style="color: #ed969e">My Information</h1>
+        <h4 class="text-black-50">✨ <span th:text="${usersResponseDto.getSlogan()}"></span> ✨</h4>
+        <br>
+        <h3 style="color: #ed969e"><span th:text="${usersResponseDto.getNickname()}"></span>님 환영합니다</h3>
         <br>
         <div style="text-align: center">
             <h5 class="text-black-50">ID : <span th:text="${usersResponseDto.getUserName()}"></span></h5>
+            <h5 class="text-black-50">Nickname : <span th:text="${usersResponseDto.getNickname()}"></span></h5>
             <h5 class="text-black-50">Email : <span th:text="${usersResponseDto.getEmail()}"></span></h5>
             <h5 class="text-black-50">Slogan : <span th:text="${usersResponseDto.getSlogan()}"></span></h5>
         </div>
 
         <br>
         <a class="btn btn-lg text-black-50" style="background-color: #f8d7da"
-           href="#" th:href="@{/users/{userId} (userId=${usersResponseDto.getUserId()})}">정보 수정</a>
+           href="#" th:href="@{/users/{userId} (userId=${usersResponseDto.getUserId()})}"> 수정 </a>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
