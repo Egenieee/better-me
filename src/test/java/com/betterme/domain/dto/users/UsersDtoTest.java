@@ -62,4 +62,32 @@ public class UsersDtoTest {
             assertEquals(encodedPassword, users.getPassword());
         }
     }
+
+    @Nested
+    class UsersUpdateRequestDtoTest {
+
+        @Test
+        @DisplayName("UsersUpdateRequestDto가 만들어진다")
+        public void createUsersRequestDto() {
+            // given
+            Users users = Users.builder()
+                    .name(userName)
+                    .nickname(userNickname)
+                    .email(userEmail)
+                    .slogan(userSlogan)
+                    .password(userPassword)
+                    .build();
+
+            // when
+            UsersUpdateRequestDto requestDto = UsersUpdateRequestDto.builder()
+                    .users(users)
+                    .build();
+
+            // then
+            assertEquals(users.getUserName(), requestDto.getUserName());
+            assertEquals(users.getNickname(), requestDto.getNickname());
+            assertEquals(users.getEmail(), requestDto.getEmail());
+            assertEquals(users.getSlogan(), requestDto.getSlogan());
+        }
+    }
 }
