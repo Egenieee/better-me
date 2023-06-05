@@ -28,15 +28,6 @@ public class UsersSaveRequestDto {
     @Length(min = 6, max = 15, message = "비밀번호는 6 ~ 15 길이로 입력해야 합니다.")
     private String password;
 
-//    @Builder
-//    public UsersSaveRequestDto(String userName, String nickname, String email, String slogan, String password) {
-//        this.userName = userName;
-//        this.nickname = nickname;
-//        this.email = email;
-//        this.slogan = slogan;
-//        this.password = password;
-//    }
-
     public Users toEntity(String encodedPassword) {
         return Users.builder()
                 .name(userName)
