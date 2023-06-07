@@ -10,8 +10,8 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 public class UsersUpdateRequestDto {
 
-    private final Long userId;
-    private final String userName;
+    private final Long usersId;
+    private final String usersName;
 
     @Length(min = 1, max = 10, message = "사용자 닉네임은 1 ~ 10 길이로 입력해야 합니다.")
     private final String nickname;
@@ -24,9 +24,9 @@ public class UsersUpdateRequestDto {
 
     @Builder
     public UsersUpdateRequestDto(Users users) {
-        this.userId = users.getId();
+        this.usersId = users.getId();
         this.nickname = users.getNickname();
-        this.userName = users.getUserName();
+        this.usersName = users.getUsersName();
         this.slogan = users.getSlogan();
         this.email = users.getEmail();
     }

@@ -7,16 +7,16 @@ import lombok.Getter;
 @Getter
 public class UsersResponseDto {
 
-    private final Long userId;
-    private final String userName;
+    private final Long usersId;
+    private final String usersName;
     private final String nickname;
     private final String email;
     private final String slogan;
 
     @Builder
     public UsersResponseDto(Users users) {
-        this.userId = users.getId();
-        this.userName = users.getUserName();
+        this.usersId = users.getId();
+        this.usersName = users.getUsersName();
         this.email = users.getEmail();
         this.nickname = users.getNickname();
         this.slogan = users.getSlogan();

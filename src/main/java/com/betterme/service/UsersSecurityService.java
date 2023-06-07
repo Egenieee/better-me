@@ -22,18 +22,18 @@ public class UsersSecurityService implements UserDetailsService {
     private final UsersRepository usersRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users users = usersRepository.findByUserName(username)
+    public UserDetails loadUserByUsername(String usersName) throws UsernameNotFoundException {
+        Users users = usersRepository.findByUsersName(usersName)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if ("admin".equals(username)) {
+        if ("admin".equals(usersName)) {
             authorities.add(new SimpleGrantedAuthority(UsersRole.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UsersRole.USERS.getValue()));
         }
 
-        return new User(users.getUserName(), users.getPassword(), authorities);
+        return new User(users.getUsersName(), users.getPassword(), authorities);
     }
 }

@@ -45,35 +45,35 @@ public class UsersController {
 
     @GetMapping("/users/information")
     public String getInformation(Model model, Principal principal) {
-        UsersResponseDto responseDto = usersService.findByUserName(principal.getName());
+        UsersResponseDto responseDto = usersService.findByUsersName(principal.getName());
         model.addAttribute("usersResponseDto", responseDto);
 
-        return "users/userInformation";
+        return "users/usersInformation";
     }
 
-    @GetMapping("/users/{userId}")
-    public String getUpdateForm(@PathVariable Long userId, Model model) {
-        UsersUpdateRequestDto requestDto = usersService.getUpdateRequestDto(userId);
+    @GetMapping("/users/{usersId}")
+    public String getUpdateForm(@PathVariable Long usersId, Model model) {
+        UsersUpdateRequestDto requestDto = usersService.getUpdateRequestDto(usersId);
         model.addAttribute("usersUpdateRequestDto", requestDto);
 
         return "users/updateUsersForm";
     }
 
-    @PutMapping("/users/{userId}")
-    public String update(@PathVariable Long userId, @Valid UsersUpdateRequestDto requestDto, BindingResult result) {
+    @PutMapping("/users/{usersId}")
+    public String update(@PathVariable Long usersId, @Valid UsersUpdateRequestDto requestDto, BindingResult result) {
 
         if (result.hasErrors()) {
             return "users/updateUsersForm";
         }
 
-        usersService.update(userId, requestDto);
+        usersService.update(usersId, requestDto);
 
         return "redirect:/";
     }
 
-    @DeleteMapping("/users/{userId}")
-    public String delete(@PathVariable Long userId, HttpSession session) {
-        usersService.delete(userId);
+    @DeleteMapping("/users/{usersId}")
+    public String delete(@PathVariable Long usersId, HttpSession session) {
+        usersService.delete(usersId);
         session.invalidate(); // 유저 삭제시 세션 삭제
 
         return "redirect:/";

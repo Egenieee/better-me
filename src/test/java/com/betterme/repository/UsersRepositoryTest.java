@@ -44,7 +44,7 @@ public class UsersRepositoryTest {
         Users savedUsers = usersRepository.findAll().get(0);
 
         // then
-        assertEquals(userName, savedUsers.getUserName());
+        assertEquals(userName, savedUsers.getUsersName());
         assertEquals(userNickname, savedUsers.getNickname());
         assertEquals(userEmail, savedUsers.getEmail());
         assertEquals(userSlogan, savedUsers.getSlogan());
@@ -69,7 +69,7 @@ public class UsersRepositoryTest {
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
 
         // then
-        assertEquals(users.getUserName(), findUsers.getUserName());
+        assertEquals(users.getUsersName(), findUsers.getUsersName());
         assertEquals(users.getNickname(), findUsers.getNickname());
         assertEquals(users.getEmail(), findUsers.getEmail());
         assertEquals(users.getSlogan(), findUsers.getSlogan());
@@ -90,11 +90,11 @@ public class UsersRepositoryTest {
         usersRepository.save(users);
 
         // when
-        Users findUsers = usersRepository.findByUserName(userName)
+        Users findUsers = usersRepository.findByUsersName(userName)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다."));
 
         // then
-        assertEquals(users.getUserName(), findUsers.getUserName());
+        assertEquals(users.getUsersName(), findUsers.getUsersName());
         assertEquals(users.getNickname(), findUsers.getNickname());
         assertEquals(users.getEmail(), findUsers.getEmail());
         assertEquals(users.getSlogan(), findUsers.getSlogan());
@@ -115,7 +115,7 @@ public class UsersRepositoryTest {
         usersRepository.save(users);
 
         // when
-        boolean isRedundant = usersRepository.existsUsersByUserName(userName);
+        boolean isRedundant = usersRepository.existsUsersByUsersName(userName);
 
         // then
         assertTrue(isRedundant);
@@ -136,7 +136,7 @@ public class UsersRepositoryTest {
         usersRepository.save(users);
 
         // when
-        boolean isRedundant = usersRepository.existsUsersByUserName("otherUserName");
+        boolean isRedundant = usersRepository.existsUsersByUsersName("otherUserName");
 
         // then
         assertFalse(isRedundant);

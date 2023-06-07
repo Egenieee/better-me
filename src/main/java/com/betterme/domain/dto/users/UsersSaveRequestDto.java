@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Length;
 public class UsersSaveRequestDto {
 
     @Length(min = 6, max = 15, message = "사용자 ID는 6 ~ 15 길이로 입력해야 합니다.")
-    private String userName;
+    private String usersName;
 
     @Length(min = 1, max = 10, message = "사용자 닉네임은 1 ~ 10 길이로 입력해야 합니다.")
     private String nickname;
@@ -30,7 +30,7 @@ public class UsersSaveRequestDto {
 
     public Users toEntity(String encodedPassword) {
         return Users.builder()
-                .name(userName)
+                .name(usersName)
                 .nickname(nickname)
                 .email(email)
                 .password(encodedPassword)

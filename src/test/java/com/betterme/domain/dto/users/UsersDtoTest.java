@@ -24,14 +24,14 @@ public class UsersDtoTest {
             // given
             UsersSaveRequestDto requestDto = new UsersSaveRequestDto();
 
-            requestDto.setUserName(userName);
+            requestDto.setUsersName(userName);
             requestDto.setNickname(userNickname);
             requestDto.setEmail(userEmail);
             requestDto.setSlogan(userSlogan);
             requestDto.setPassword(userPassword);
 
             // when, then
-            assertEquals(userName, requestDto.getUserName());
+            assertEquals(userName, requestDto.getUsersName());
             assertEquals(userNickname, requestDto.getNickname());
             assertEquals(userEmail, requestDto.getEmail());
             assertEquals(userSlogan, requestDto.getSlogan());
@@ -44,7 +44,7 @@ public class UsersDtoTest {
             // given
             UsersSaveRequestDto requestDto = new UsersSaveRequestDto();
 
-            requestDto.setUserName(userName);
+            requestDto.setUsersName(userName);
             requestDto.setNickname(userNickname);
             requestDto.setEmail(userEmail);
             requestDto.setSlogan(userSlogan);
@@ -55,7 +55,7 @@ public class UsersDtoTest {
             Users users = requestDto.toEntity(encodedPassword);
 
             // then
-            assertEquals(userName, users.getUserName());
+            assertEquals(userName, users.getUsersName());
             assertEquals(userNickname, users.getNickname());
             assertEquals(userEmail, users.getEmail());
             assertEquals(userSlogan, users.getSlogan());
@@ -84,7 +84,7 @@ public class UsersDtoTest {
                     .build();
 
             // then
-            assertEquals(users.getUserName(), requestDto.getUserName());
+            assertEquals(users.getUsersName(), requestDto.getUsersName());
             assertEquals(users.getNickname(), requestDto.getNickname());
             assertEquals(users.getEmail(), requestDto.getEmail());
             assertEquals(users.getSlogan(), requestDto.getSlogan());
@@ -112,7 +112,7 @@ public class UsersDtoTest {
                     .build();
 
             // then
-            assertEquals(users.getUserName(), responseDto.getUserName());
+            assertEquals(users.getUsersName(), responseDto.getUsersName());
             assertEquals(users.getNickname(), responseDto.getNickname());
             assertEquals(users.getEmail(), responseDto.getEmail());
             assertEquals(users.getSlogan(), responseDto.getSlogan());

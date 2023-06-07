@@ -26,7 +26,7 @@ public class UsersTest {
                 .build();
 
         // when, then
-        assertEquals(userName, users.getUserName());
+        assertEquals(userName, users.getUsersName());
         assertEquals(userNickname, users.getNickname());
         assertEquals(userEmail, users.getEmail());
         assertEquals(userSlogan, users.getSlogan());

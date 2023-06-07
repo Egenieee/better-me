@@ -18,20 +18,20 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private Users findUsersWithUserId(Long userId) {
-        return usersRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. user id = " + userId));
+    private Users findUsersWithUsersId(Long usersId) {
+        return usersRepository.findById(usersId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. users id = " + usersId));
     }
 
-    private Users findUsersWithUserName(String username) {
-        return usersRepository.findByUserName(username)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. user name = " + username));
+    private Users findUsersWithUsersName(String usersName) {
+        return usersRepository.findByUsersName(usersName)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. users name = " + usersName));
     }
 
     @Transactional
     public Long save(UsersSaveRequestDto requestDto) {
         // 사용자 아이디 중복 체크
-        if (isExistUserName(requestDto.getUserName())) {
+        if (isExistUsersName(requestDto.getUsersName())) {
             throw new UsersNotUniqueException("이미 등록된 사용자 입니다.");
         }
 
@@ -42,32 +42,32 @@ public class UsersService {
         return usersRepository.save(requestDto.toEntity(encodedPassword)).getId();
     }
 
-    private boolean isExistUserName(String userName) {
-        return usersRepository.existsUsersByUserName(userName);
+    private boolean isExistUsersName(String usersName) {
+        return usersRepository.existsUsersByUsersName(usersName);
     }
 
-    public UsersResponseDto findByUserName(String username) {
-        Users users = findUsersWithUserName(username);
+    public UsersResponseDto findByUsersName(String usersName) {
+        Users users = findUsersWithUsersName(usersName);
 
         return new UsersResponseDto(users);
     }
 
     // 회원 정보 수정 폼 생성
-    public UsersUpdateRequestDto getUpdateRequestDto(Long userId) {
-        Users users = findUsersWithUserId(userId);
+    public UsersUpdateRequestDto getUpdateRequestDto(Long usersId) {
+        Users users = findUsersWithUsersId(usersId);
 
         return new UsersUpdateRequestDto(users);
     }
 
     @Transactional
-    public void update(Long userId, UsersUpdateRequestDto requestDto) {
-        Users users = findUsersWithUserId(userId);
+    public void update(Long usersId, UsersUpdateRequestDto requestDto) {
+        Users users = findUsersWithUsersId(usersId);
         users.update(requestDto.getNickname(), requestDto.getEmail(), requestDto.getSlogan());
     }
 
     @Transactional
-    public void delete(Long userId) {
-        Users users = findUsersWithUserId(userId);
+    public void delete(Long usersId) {
+        Users users = findUsersWithUsersId(usersId);
         usersRepository.delete(users);
     }
 
