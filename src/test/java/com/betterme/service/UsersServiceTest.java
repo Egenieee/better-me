@@ -148,7 +148,11 @@ public class UsersServiceTest {
             usersRepository.save(users);
 
             UsersUpdateRequestDto requestDto = UsersUpdateRequestDto.builder()
-                    .users(users)
+                    .usersId(users.getId())
+                    .nickname(users.getNickname())
+                    .usersName(users.getUsersName())
+                    .slogan(users.getSlogan())
+                    .email(users.getEmail())
                     .build();
 
             String changedNickname = "changedNickname";

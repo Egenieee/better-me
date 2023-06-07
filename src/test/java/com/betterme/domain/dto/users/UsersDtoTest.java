@@ -80,7 +80,11 @@ public class UsersDtoTest {
 
             // when
             UsersUpdateRequestDto requestDto = UsersUpdateRequestDto.builder()
-                    .users(users)
+                    .usersId(users.getId())
+                    .nickname(users.getNickname())
+                    .usersName(users.getUsersName())
+                    .slogan(users.getSlogan())
+                    .email(users.getEmail())
                     .build();
 
             // then

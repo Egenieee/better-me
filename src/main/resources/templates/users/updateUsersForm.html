@@ -6,11 +6,11 @@
 <div class="container">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
-    <form th:action="@{/users/{userId} (userId=${usersUpdateRequestDto.getUsersId()})}"
+    <form th:action="@{/users/{usersId} (usersId=${usersUpdateRequestDto.getUsersId()})}"
           th:object="${usersUpdateRequestDto}" method="post">
         <input type="hidden" name="_method" value="put">
-        <input type="hidden" id="userId" name="userId" th:value="${usersUpdateRequestDto.getUsersId()}"
-               th:field="*{getUsersId}">
+        <input type="hidden" id="usersId" name="usersId" th:value="${usersUpdateRequestDto.getUsersId()}"
+               th:field="*{usersId}">
 
         <div>
             <h4 class="text-muted">회원 정보 수정</h4>

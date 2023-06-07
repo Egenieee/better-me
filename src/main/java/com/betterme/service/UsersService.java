@@ -7,10 +7,12 @@ import com.betterme.domain.entity.Users;
 import com.betterme.exception.UsersNotUniqueException;
 import com.betterme.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UsersService {
@@ -56,7 +58,7 @@ public class UsersService {
     public UsersUpdateRequestDto getUpdateRequestDto(Long usersId) {
         Users users = findUsersWithUsersId(usersId);
 
-        return new UsersUpdateRequestDto(users);
+        return new UsersUpdateRequestDto(users.getId(), users.getNickname(), users.getUsersName(), users.getSlogan(), users.getEmail());
     }
 
     @Transactional
