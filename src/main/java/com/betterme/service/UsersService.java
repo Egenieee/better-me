@@ -41,7 +41,11 @@ public class UsersService {
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
         // 유저 저장
-        return usersRepository.save(requestDto.toEntity(encodedPassword)).getId();
+        Users savedUsers = usersRepository.save(requestDto.toEntity(encodedPassword));
+
+        log.info("Users is saved with users id = " + savedUsers.getId());
+
+        return savedUsers.getId();
     }
 
     private boolean isExistUsersName(String usersName) {
@@ -65,12 +69,16 @@ public class UsersService {
     public void update(Long usersId, UsersUpdateRequestDto requestDto) {
         Users users = findUsersWithUsersId(usersId);
         users.update(requestDto.getNickname(), requestDto.getEmail(), requestDto.getSlogan());
+
+        log.info("Users is update with users id = " + users.getId());
     }
 
     @Transactional
     public void delete(Long usersId) {
         Users users = findUsersWithUsersId(usersId);
         usersRepository.delete(users);
+
+        log.info("Users is deleted with users id = " + users.getId());
     }
 
 }
