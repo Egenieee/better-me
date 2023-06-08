@@ -4,6 +4,7 @@ import com.betterme.domain.dto.users.UsersResponseDto;
 import com.betterme.domain.dto.users.UsersSaveRequestDto;
 import com.betterme.domain.dto.users.UsersUpdateRequestDto;
 import com.betterme.domain.entity.Users;
+import com.betterme.exception.UsersNotUniqueException;
 import com.betterme.repository.UsersRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 public class UsersServiceTest {
@@ -34,6 +36,8 @@ public class UsersServiceTest {
     private final String usersNickname = "testNickname";
     private final String usersSlogan = "testSlogan";
     private final String usersPassword = "testPassword";
+
+    private final String wrongUsersName = "testUserName";
 
     private final String encodedPassword = "BEtTeRmE";
 
@@ -188,6 +192,50 @@ public class UsersServiceTest {
 
             // then
             assertEquals(0, usersRepository.findAll().size());
+        }
+    }
+
+    @Nested
+    class FailCases {
+
+        @Test
+        @DisplayName("이미 등록된 사용자 아이디일 경우 UsersNotUniqueException이 발생한다")
+        public void saveUsersWithDuplicatedUsersName() {
+            // given
+            UsersSaveRequestDto requestDto = new UsersSaveRequestDto();
+
+            requestDto.setUsersName(usersName);
+            requestDto.setNickname(usersNickname);
+            requestDto.setEmail(usersEmail);
+            requestDto.setSlogan(usersSlogan);
+            requestDto.setPassword(usersPassword);
+
+            Users users = requestDto.toEntity(encodedPassword);
+
+            ReflectionTestUtils.setField(users, "id", 1L);
+
+            Mockito.when(usersRepository.existsUsersByUsersName(usersName)).thenReturn(true);
+            Mockito.when(usersRepository.save(Mockito.any(Users.class))).thenReturn(users);
+
+            // when, then
+            assertThrows(UsersNotUniqueException.class, () -> usersService.save(requestDto));
+        }
+
+        @Test
+        @DisplayName("잘못된 usersName일 경우 IllegalArgumentException이 발생한다")
+        public void findByWrongUsersName() {
+            // given
+            Users users = getUsers();
+
+            ReflectionTestUtils.setField(users, "id", 2L);
+
+            Mockito.when(usersRepository.save(Mockito.any(Users.class))).thenReturn(users);
+            Mockito.when(usersRepository.findByUsersName(wrongUsersName)).thenReturn(Optional.empty());
+
+            usersRepository.save(users);
+
+            /// when, then
+            assertThrows(IllegalArgumentException.class, () -> usersService.findByUsersName(wrongUsersName));
         }
     }
 
