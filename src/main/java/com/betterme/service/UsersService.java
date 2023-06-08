@@ -20,12 +20,12 @@ public class UsersService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private Users findUsersWithUsersId(Long usersId) {
+    private Users findUsersByUsersId(Long usersId) {
         return usersRepository.findById(usersId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. users id = " + usersId));
     }
 
-    private Users findUsersWithUsersName(String usersName) {
+    private Users findUsersByUsersName(String usersName) {
         return usersRepository.findByUsersName(usersName)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 존재하지 않습니다. users name = " + usersName));
     }
@@ -53,21 +53,21 @@ public class UsersService {
     }
 
     public UsersResponseDto findByUsersName(String usersName) {
-        Users users = findUsersWithUsersName(usersName);
+        Users users = findUsersByUsersName(usersName);
 
         return new UsersResponseDto(users);
     }
 
     // 회원 정보 수정 폼 생성
     public UsersUpdateRequestDto getUpdateRequestDto(Long usersId) {
-        Users users = findUsersWithUsersId(usersId);
+        Users users = findUsersByUsersId(usersId);
 
         return new UsersUpdateRequestDto(users.getId(), users.getNickname(), users.getUsersName(), users.getSlogan(), users.getEmail());
     }
 
     @Transactional
     public void update(Long usersId, UsersUpdateRequestDto requestDto) {
-        Users users = findUsersWithUsersId(usersId);
+        Users users = findUsersByUsersId(usersId);
         users.update(requestDto.getNickname(), requestDto.getEmail(), requestDto.getSlogan());
 
         log.info("Users is update with users id = " + users.getId());
@@ -75,7 +75,7 @@ public class UsersService {
 
     @Transactional
     public void delete(Long usersId) {
-        Users users = findUsersWithUsersId(usersId);
+        Users users = findUsersByUsersId(usersId);
         usersRepository.delete(users);
 
         log.info("Users is deleted with users id = " + users.getId());
