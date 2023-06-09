@@ -21,11 +21,16 @@
             <h5 class="text-black-50">Nickname : <span th:text="${usersResponseDto.getNickname()}"></span></h5>
             <h5 class="text-black-50">Email : <span th:text="${usersResponseDto.getEmail()}"></span></h5>
             <h5 class="text-black-50">Slogan : <span th:text="${usersResponseDto.getSlogan()}"></span></h5>
+            <br>
+            <br>
+            <h6 class="text-black-50">회원가입 일자 : <span th:text="${usersResponseDto.getCreatedDate()}"></span></h6>
         </div>
-
         <br>
-        <a class="btn btn-lg text-black-50" style="background-color: #f8d7da"
-           href="#" th:href="@{/users/{usersId} (usersId=${usersResponseDto.getUsersId()})}"> 수정 </a>
+        <br>
+        <div style="text-align: right">
+            <a class="btn btn-lg text-black-50" style="background-color: #f8d7da"
+               href="#" th:href="@{/users/{usersId} (usersId=${usersResponseDto.getUsersId()})}"> &nbsp 수정 &nbsp </a>
+        </div>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
