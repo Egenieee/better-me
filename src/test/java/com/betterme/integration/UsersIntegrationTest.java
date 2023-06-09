@@ -207,4 +207,179 @@ public class UsersIntegrationTest {
             assertEquals(0, usersRepository.findAll().size());
         }
     }
+
+    @Nested
+    @DisplayName("요청이 실패하는 경우")
+    class FailCases {
+
+        @Nested
+        @DisplayName("회원가입 폼에 잘못된 정보를 입력했을 경우")
+        class SaveUsersWithWrongInformation {
+
+            String url = "http://localhost:" + port + "/users/new";
+
+            @Test
+            @DisplayName("UsersName이 잘못된 경우 error가 발생한다")
+            public void withUsersName() throws Exception {
+                // given
+                String wrongUsersName = "apfhd";
+
+                // when, then
+                mvc.perform(post(url)
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("usersName", wrongUsersName)
+                                .param("nickname", usersNickname)
+                                .param("email", usersEmail)
+                                .param("slogan", usersSlogan)
+                                .param("password", usersPassword))
+                        .andExpect(status().isOk())
+                        .andExpect(model().attributeHasFieldErrors("usersSaveRequestDto"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "usersName", "Length"))
+                        .andExpect(view().name("users/createUsersForm"));
+            }
+
+            @Test
+            @DisplayName("Email이 잘못된 경우 error가 발생한다")
+            public void withUsersEmail() throws Exception {
+                // given
+                String wrongEmail = "apfhd";
+
+                // when, then
+                mvc.perform(post(url)
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("usersName", usersName)
+                                .param("nickname", usersNickname)
+                                .param("email", wrongEmail)
+                                .param("slogan", usersSlogan)
+                                .param("password", usersPassword))
+                        .andExpect(status().isOk())
+                        .andExpect(model().attributeHasFieldErrors("usersSaveRequestDto"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "email", "Email"))
+                        .andExpect(view().name("users/createUsersForm"));
+            }
+
+            @Test
+            @DisplayName("Nickname이 잘못된 경우 error가 발생한다")
+            public void withUsersNickname() throws Exception {
+                // given
+                String wrongNickname = "apfhdapfhdapfhd";
+
+                // when, then
+                mvc.perform(post(url)
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("usersName", usersName)
+                                .param("nickname", wrongNickname)
+                                .param("email", usersEmail)
+                                .param("slogan", usersSlogan)
+                                .param("password", usersPassword))
+                        .andExpect(status().isOk())
+                        .andExpect(model().attributeHasFieldErrors("usersSaveRequestDto"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "nickname", "Length"))
+                        .andExpect(view().name("users/createUsersForm"));
+            }
+
+            @Test
+            @DisplayName("password가 잘못된 경우 error가 발생한다")
+            public void withUsersPassword() throws Exception {
+                // given
+                String wrongPassword = "apfhd";
+
+                // when
+                mvc.perform(post(url)
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("usersName", usersName)
+                                .param("nickname", usersNickname)
+                                .param("email", usersEmail)
+                                .param("slogan", usersSlogan)
+                                .param("password", wrongPassword))
+                        .andExpect(status().isOk())
+                        .andExpect(model().attributeHasFieldErrors("usersSaveRequestDto"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "password", "Length"))
+                        .andExpect(view().name("users/createUsersForm"));
+            }
+
+            @Test
+            @DisplayName("모든 파라미터 값이 잘못된 경우 error가 발생한다")
+            public void withEveryValue() throws Exception {
+                // given
+                String wrongUsersName = "apfhd";
+                String wrongEmail = "apfhd";
+                String wrongNickname = "apfhdapfhdapfhd";
+                String wrongPassword = "apfhd";
+
+                // when, then
+                mvc.perform(post(url)
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("usersName", wrongUsersName)
+                                .param("nickname", wrongNickname)
+                                .param("email", wrongEmail)
+                                .param("slogan", usersSlogan)
+                                .param("password", wrongPassword))
+                        .andExpect(status().isOk())
+                        .andExpect(model().attributeHasFieldErrors("usersSaveRequestDto"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "usersName", "Length"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "email", "Email"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "nickname", "Length"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersSaveRequestDto", "password", "Length"))
+                        .andExpect(view().name("users/createUsersForm"));
+            }
+        }
+
+        @Nested
+        @DisplayName("회원 정보 수정 폼에 잘못된 정보를 입력했을 경우")
+        class UpdateUsersWithWrongInformation {
+
+            UsersResponseDto responseDto;
+
+            {
+                try {
+                    responseDto = saveTestUsers();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            String url = "http://localhost:" + port + "/users/" + responseDto.getUsersId();
+
+            @Test
+            @DisplayName("email이 잘못된 경우 error가 발생한다")
+            public void withUsersEmail() throws Exception {
+                // given
+                String wrongEmail = "apfhd";
+
+                // when, then
+                mvc.perform(put(url)
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("usersId", responseDto.getUsersId().toString())
+                                .param("usersName", responseDto.getUsersName())
+                                .param("nickname", responseDto.getNickname())
+                                .param("slogan", responseDto.getSlogan())
+                                .param("email", wrongEmail))
+                        .andExpect(status().isOk())
+                        .andExpect(model().attributeHasFieldErrors("usersUpdateRequestDto"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersUpdateRequestDto", "email", "Email"))
+                        .andExpect(view().name("users/updateUsersForm"));
+            }
+
+            @Test
+            @DisplayName("nickname이 잘못된 경우 error가 발생한다")
+            public void withUsersNickname() throws Exception {
+                // given
+                String wrongNickname = "apfhdapfhdapfhd";
+
+                // when, then
+                mvc.perform(put(url)
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("usersId", responseDto.getUsersId().toString())
+                                .param("usersName", responseDto.getUsersName())
+                                .param("nickname", wrongNickname)
+                                .param("slogan", responseDto.getSlogan())
+                                .param("email", responseDto.getEmail()))
+                        .andExpect(status().isOk())
+                        .andExpect(model().attributeHasFieldErrors("usersUpdateRequestDto"))
+                        .andExpect(model().attributeHasFieldErrorCode("usersUpdateRequestDto", "nickname", "Length"))
+                        .andExpect(view().name("users/updateUsersForm"));
+            }
+        }
+    }
 }
