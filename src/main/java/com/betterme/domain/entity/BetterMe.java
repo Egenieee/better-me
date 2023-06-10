@@ -1,6 +1,7 @@
 package com.betterme.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,8 +15,14 @@ public class BetterMe extends BaseTimeEntity {
     @Column(name = "betterMe_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;
+
+    @Builder
+    public BetterMe(Users users) {
+        this.users = users;
+        users.getBetterMes().add(this);
+    }
 
 }
