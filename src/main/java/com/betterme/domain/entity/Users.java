@@ -5,6 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -29,6 +33,9 @@ public class Users extends BaseTimeEntity {
     @Column
     private String slogan;
 
+    @OneToMany(mappedBy = "users")
+    List<BetterMe> betterMes = new ArrayList<>();
+
     @Builder
     public Users(String name, String nickname, String email, String password, String slogan) {
         this.usersName = name;
@@ -44,4 +51,13 @@ public class Users extends BaseTimeEntity {
         this.slogan = slogan;
     }
 
+    public boolean hasBetterMeOfToday(LocalDate today) {
+        for (BetterMe betterMe : betterMes) {
+            if (betterMe.getCreatedDate().toLocalDate().isEqual(today)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
