@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/header :: header}">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container" th:object="${hasBetterMeOfToday}">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div class="jumbotron" style="background-color: lavenderblush !important;">
+        <h1 style="color: #ed969e">Better me</h1>
+        <br>
+        <div th:unless="${hasBetterMeOfToday}" sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #ffb4b4" href="/better-me/new">새로운 Better Me
+                생성</a>
+        </div>
+        <div th:if="${hasBetterMeOfToday}" sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f5c6cb" href="/better-me/today">오늘의 Better me</a>
+        </div>
+        <br>
+        <div th:if="${hasBetterMeOfToday}" sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f1b0b7" href="/better-me/past">과거의 Better me</a>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
