@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <form role="form" action="/better-me/new" th:object="${betterMeSaveRequestDto}" method="post">
+        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+
+        <div class="form-group">
+            <label th:for="usersName">사용자 ID</label>
+
+            <input type="text" th:field="*{usersName}" class="form-control" placeholder="사용자 ID를 입력하세요 👩🏻‍💻" readonly>
+
+        </div>
+        <div class="form-group">
+            <label th:for="today">오늘 날짜</label>
+            <input type="text" th:field="*{today}" class="form-control" placeholder="비밀번호를 입력하세요 🔐" readonly>
+
+        </div>
+
+        <br>
+
+        <h6 class="text-black-50">
+            <span th:text="${betterMeSaveRequestDto.getToday()}"></span> 날짜로
+            <span th:text="${betterMeSaveRequestDto.getUsersName()}"></span>님의 Better Me를 생성합니다.
+        </h6>
+        <br>
+        <a href="/" role="button" class="btn btn-secondary">취소</a>
+        <button type="submit" class="btn btn-primary">생성</button>
+    </form>
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
