@@ -14,6 +14,9 @@
     <div class="jumbotron" style="background-color: lavenderblush !important;">
         <h1 style="color: #ed969e">Better me</h1>
         <br>
+        <div sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #ed969e" href="/better-me">Better Me 관리</a>
+        </div>
         <div sec:authorize="isAnonymous()">
             <a class="btn btn-lg text-black-50" style="background-color: #f8d7da" href="/users/login">로그인</a>
             <a class="btn btn-lg text-black-50" style="background-color: #f5c6cb" href="/users/new">회원 가입</a>
