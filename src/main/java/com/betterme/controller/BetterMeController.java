@@ -22,6 +22,11 @@ public class BetterMeController {
 
     @GetMapping("/better-me")
     public String getBetterMeIndex(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "users/loginForm";
+        }
+
         boolean hasBetterMeOfToday = betterMeService.hasBetterMeOfToday(principal.getName(), LocalDate.now());
 
         model.addAttribute("hasBetterMeOfToday", hasBetterMeOfToday);
@@ -31,6 +36,11 @@ public class BetterMeController {
 
     @GetMapping("/better-me/new")
     public String createBetterMeForm(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "users/loginForm";
+        }
+
         BetterMeSaveRequestDto requestDto = betterMeService.getBetterMeSaveRequestDto(principal.getName(), LocalDate.now());
 
         model.addAttribute("betterMeSaveRequestDto", requestDto);

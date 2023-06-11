@@ -45,6 +45,11 @@ public class UsersController {
 
     @GetMapping("/users/information")
     public String getInformation(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "users/loginForm";
+        }
+
         UsersResponseDto responseDto = usersService.findByUsersName(principal.getName());
         model.addAttribute("usersResponseDto", responseDto);
 
