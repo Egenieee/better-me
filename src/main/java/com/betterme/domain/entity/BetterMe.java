@@ -25,4 +25,9 @@ public class BetterMe extends BaseTimeEntity {
         users.getBetterMes().add(this);
     }
 
+    public float getProgress() {
+        // 추후 개발 예정
+        return 33.3f;
+    }
+
 }

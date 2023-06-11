@@ -60,4 +60,14 @@ public class Users extends BaseTimeEntity {
 
         return false;
     }
+
+    public BetterMe getBetterMeOfToday(LocalDate today) {
+        for (BetterMe betterMe : betterMes) {
+            if (betterMe.getCreatedDate().toLocalDate().isEqual(today)) {
+                return betterMe;
+            }
+        }
+
+        return null;
+    }
 }

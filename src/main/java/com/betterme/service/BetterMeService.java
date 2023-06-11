@@ -56,4 +56,11 @@ public class BetterMeService {
 
         return betterMe.getId();
     }
+
+    public int getProgressOfToday(String usersName, LocalDate today) {
+        Users users = findUsersByUsersName(usersName);
+        BetterMe betterMe = users.getBetterMeOfToday(today);
+
+        return Math.round(betterMe.getProgress());
+    }
 }
