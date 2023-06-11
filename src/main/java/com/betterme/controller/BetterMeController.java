@@ -55,4 +55,19 @@ public class BetterMeController {
         return "redirect:/better-me";
     }
 
+
+    @GetMapping("/better-me/today")
+    public String getBetterMeOfToday(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "users/loginForm";
+        }
+
+        int progress = betterMeService.getProgressOfToday(principal.getName(), LocalDate.now());
+
+        model.addAttribute("progress", progress);
+
+        return "betterme/betterMeOfToday";
+    }
+
 }
