@@ -1,0 +1,86 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/header :: header}">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        .item {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container" th:object="${progress}">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div class="jumbotron" style="background-color: lavenderblush !important;">
+        <h1 style="color: #ed969e">Better me</h1>
+        <br>
+        <div class="jumbotron" style="background-color: #ffe3e3">
+            <h5 style="color: #e37883">오늘의 Better Me 진척도</h5>
+            <!--            <p sec:authorize="isAuthenticated()">-->
+            <!--                <a class="btn btn-lg text-white" style="background-color: #f5c6cb" href="/better-me/brief">오늘의 Better Me 성취도</a>-->
+            <!--            </p>-->
+            <br>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                     aria-label="Basic example" th:style="'width: ' + ${progress} + '%'"
+                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span th:text="${progress} + '%'"></span>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="text-black-50">Study</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/study/">공부 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Water</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/waters/">수분 섭취 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Todo</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/todos/">할일 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Sleep</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/sleeps/">수면 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Read</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/reads/">독서 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Workout</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/workouts/">운동 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Nutrients</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/nutrients/">영양제 섭취 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Diet</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/diets/">식단 기록 관리</a>
+        </p>
+
+        <h5 class="text-black-50">Diary</h5>
+        <p sec:authorize="isAuthenticated()">
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/diary/">일기 관리</a>
+        </p>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
