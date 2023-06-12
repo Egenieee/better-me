@@ -29,50 +29,15 @@
             </div>
         </div>
 
-        <h5 class="text-black-50">Study</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/study/">공부 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Water</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/waters/">수분 섭취 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Todo</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/todos/">할일 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Sleep</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/sleeps/">수면 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Read</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/reads/">독서 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Workout</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/workouts/">운동 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Nutrients</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/nutrients/">영양제 섭취 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Diet</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/diets/">식단 기록 관리</a>
-        </p>
-
-        <h5 class="text-black-50">Diary</h5>
-        <p>
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/diary/">일기 관리</a>
-        </p>
+        <div th:each="habit : ${betterMeOfTodayResponseDto.getHabits()}">
+            <br>
+            <p>
+                <a class="btn btn-lg text-white" style="background-color: #f8d7da" th:href="${habit.value}">
+                    <span th:text="${habit.key}"></span>
+                </a>
+            </p>
+            <br>
+        </div>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
