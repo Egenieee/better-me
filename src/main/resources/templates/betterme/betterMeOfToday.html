@@ -2,18 +2,13 @@
 <head th:replace="~{fragments/header :: header}">
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <style>
-        .item {
-            display: inline-block;
-        }
-    </style>
 </head>
 
 <body style="padding: 0 !important;">
 <!-- 네비게이션 바 -->
 <nav th:replace="~{fragments/nevbar}"></nav>
 
-<div class="container" th:object="${progress}">
+<div class="container" th:object="${betterMeOfTodayResponseDto}">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
     <div class="jumbotron" style="background-color: lavenderblush !important;">
@@ -27,8 +22,9 @@
             <br>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
-                     aria-label="Basic example" th:style="'width: ' + ${progress} + '%'"
-                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span th:text="${progress} + '%'"></span>
+                     aria-label="Basic example" th:style="'width: ' + ${betterMeOfTodayResponseDto.getProgress()} + '%'"
+                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span
+                        th:text="${betterMeOfTodayResponseDto.getProgress()} + '%'"></span>
                 </div>
             </div>
         </div>
@@ -59,13 +55,13 @@
         </p>
 
         <h5 class="text-black-50">Workout</h5>
-        <p">
-        <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/workouts/">운동 기록 관리</a>
+        <p>
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/workouts/">운동 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Nutrients</h5>
-        <p">
-        <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/nutrients/">영양제 섭취 기록 관리</a>
+        <p>
+            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/nutrients/">영양제 섭취 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Diet</h5>
