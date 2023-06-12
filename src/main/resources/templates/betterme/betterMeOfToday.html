@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header}">
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,47 +34,47 @@
         </div>
 
         <h5 class="text-black-50">Study</h5>
-        <p sec:authorize="isAuthenticated()">
+        <p>
             <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/study/">공부 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Water</h5>
-        <p sec:authorize="isAuthenticated()">
+        <p>
             <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/waters/">수분 섭취 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Todo</h5>
-        <p sec:authorize="isAuthenticated()">
+        <p>
             <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/todos/">할일 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Sleep</h5>
-        <p sec:authorize="isAuthenticated()">
+        <p>
             <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/sleeps/">수면 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Read</h5>
-        <p sec:authorize="isAuthenticated()">
+        <p>
             <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/reads/">독서 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Workout</h5>
-        <p sec:authorize="isAuthenticated()">
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/workouts/">운동 기록 관리</a>
+        <p">
+        <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/workouts/">운동 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Nutrients</h5>
-        <p sec:authorize="isAuthenticated()">
-            <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/nutrients/">영양제 섭취 기록 관리</a>
+        <p">
+        <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/nutrients/">영양제 섭취 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Diet</h5>
-        <p sec:authorize="isAuthenticated()">
+        <p>
             <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/diets/">식단 기록 관리</a>
         </p>
 
         <h5 class="text-black-50">Diary</h5>
-        <p sec:authorize="isAuthenticated()">
+        <p>
             <a class="btn btn-lg text-white" style="background-color: #f8d7da" href="/diary/">일기 관리</a>
         </p>
     </div>
