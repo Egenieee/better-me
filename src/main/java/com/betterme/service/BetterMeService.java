@@ -1,5 +1,6 @@
 package com.betterme.service;
 
+import com.betterme.domain.dto.betterme.BetterMeOfTodayResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Users;
@@ -57,10 +58,10 @@ public class BetterMeService {
         return betterMe.getId();
     }
 
-    public int getProgressOfToday(String usersName, LocalDate today) {
+    public BetterMeOfTodayResponseDto getBetterMeOfToday(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
         BetterMe betterMe = users.getBetterMeOfToday(today);
 
-        return Math.round(betterMe.getProgress());
+        return new BetterMeOfTodayResponseDto(betterMe);
     }
 }

@@ -1,5 +1,6 @@
 package com.betterme.controller;
 
+import com.betterme.domain.dto.betterme.BetterMeOfTodayResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.service.BetterMeService;
 import lombok.RequiredArgsConstructor;
@@ -63,9 +64,9 @@ public class BetterMeController {
             return "users/loginForm";
         }
 
-        int progress = betterMeService.getProgressOfToday(principal.getName(), LocalDate.now());
+        BetterMeOfTodayResponseDto responseDto = betterMeService.getBetterMeOfToday(principal.getName(), LocalDate.now());
 
-        model.addAttribute("progress", progress);
+        model.addAttribute("betterMeOfTodayResponseDto", responseDto);
 
         return "betterme/betterMeOfToday";
     }
