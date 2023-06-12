@@ -3,16 +3,20 @@ package com.betterme.controller;
 import com.betterme.domain.dto.betterme.BetterMeOfTodayResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.service.BetterMeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -49,8 +53,29 @@ public class BetterMeController {
         return "betterme/createBetterMeForm";
     }
 
+    @ModelAttribute("habits")
+    private Map<String, String> habits() {
+        Map<String, String> map = new LinkedHashMap<>();
+
+        map.put("study", "공부 기록");
+        map.put("read", "독서 기록");
+        map.put("sleep", "수면 기록");
+        map.put("todo", "할일 기록");
+        map.put("diet", "식단 기록");
+        map.put("water", "수분 섭취 기록");
+        map.put("nutrients", "영영제 섭취 기록");
+        map.put("diary", "일기 작성");
+
+        return map;
+    }
+
     @PostMapping("/better-me/new")
-    public String save(BetterMeSaveRequestDto requestDto, BindingResult result) {
+    public String save(@Valid BetterMeSaveRequestDto requestDto, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "betterme/createBetterMeForm";
+        }
+
         betterMeService.save(requestDto);
 
         return "redirect:/better-me";
