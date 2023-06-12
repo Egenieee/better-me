@@ -51,6 +51,8 @@ public class BetterMeService {
         Users users = findUsersByUsersName(requestDto.getUsersName());
         BetterMe betterMe = requestDto.toEntity(users);
 
+        betterMe.setHabitsAndUrl(requestDto.getHabits());
+
         betterMeRepository.save(betterMe);
 
         log.info("BetterMe is saved with users id = " + betterMe.getId());
