@@ -15,7 +15,7 @@
         <h1 style="color: #ed969e">Better me</h1>
         <br>
         <div class="jumbotron" style="background-color: #ffe3e3">
-            <h5 style="color: #e37883">오늘의 Better Me 진척도</h5>
+            <h5 style="color: #e37883">오늘의 바른 습관 성취도</h5>
             <!--            <p sec:authorize="isAuthenticated()">-->
             <!--                <a class="btn btn-lg text-white" style="background-color: #f5c6cb" href="/better-me/brief">오늘의 Better Me 성취도</a>-->
             <!--            </p>-->
@@ -32,7 +32,7 @@
         <div th:each="habit : ${betterMeOfTodayResponseDto.getHabits()}">
             <br>
             <p>
-                <a class="btn btn-lg text-white" style="background-color: #f8d7da"
+                <a class="btn btn-lg text-black-50" style="background-color: #f8d7da"
                    th:href="@{${habit.value}(betterMeId=${betterMeOfTodayResponseDto.getId()})}">
                     <span th:text="${habit.key}"></span>
                 </a>

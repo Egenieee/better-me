@@ -15,15 +15,17 @@
         <h1 style="color: #ed969e">Better me</h1>
         <br>
         <div th:unless="${hasBetterMeOfToday}" sec:authorize="isAuthenticated()">
-            <a class="btn btn-lg text-white" style="background-color: #ffb4b4" href="/better-me/new">새로운 Better Me
+            <a class="btn btn-lg text-white" style="background-color: #ffb4b4" href="/better-me/new">오늘의 새로운 습관 노트
                 생성</a>
         </div>
         <div th:if="${hasBetterMeOfToday}" sec:authorize="isAuthenticated()">
-            <a class="btn btn-lg text-white" style="background-color: #f5c6cb" href="/better-me/today">오늘의 Better me</a>
+            <a class="btn btn-lg text-white" style="background-color: #f5c6cb" href="/better-me/today">오늘의 습관 노트
+                관리하기</a>
         </div>
         <br>
         <div th:if="${hasBetterMeOfToday}" sec:authorize="isAuthenticated()">
-            <a class="btn btn-lg text-white" style="background-color: #f1b0b7" href="/better-me/past">과거의 Better me</a>
+            <a class="btn btn-lg text-white" style="background-color: #f1b0b7" href="/better-me/past">과거의 내 습관 노트
+                돌아보기</a>
         </div>
     </div>
 
