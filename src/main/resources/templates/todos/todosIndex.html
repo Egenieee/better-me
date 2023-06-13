@@ -28,9 +28,90 @@
         </table>
     </div>
 
+    <!-- Button trigger modal -->
+    <div style="display: flex; justify-content: flex-end;">
+        <button type="button" id="addButton" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+            할 일 추가
+        </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5" id="exampleModalLabel">새로운 할 일 작성</h5>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form role="form" action="/todos/new" th:object="${todosSaveRequestDto}" method="post">
+                            <input type="hidden" id="betterMeId" name="betterMeId" th:value="${betterMeId}">
+
+                            <div class="form-group">
+                                <label th:for="content">오늘 할 일</label>
+
+                                <input type="text" th:field="*{content}" class="form-control"
+                                       placeholder="오늘 할 일을 입력하세요 ✅">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="submit" class="btn btn-primary" id="saveButton">추가하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <br/>
     <div th:replace="~{fragments/footer :: footer}"></div>
 </div> <!-- /container -->
+<script>
+    const saveButton = document.getElementById('saveButton');
+    const form = document.querySelector('form');
 
+    saveButton.addEventListener('click', function () {
+        // Form 데이터 가져오기
+        const form = document.querySelector('form');
+        const formData = new FormData(form);
+
+        // 폼 데이터 유효성 체크
+        const contentInput = form.querySelector('input[name="content"]');
+
+        if (contentInput.value.trim() === '') {
+            return;
+        }
+
+        // POST 요청 보내기
+        fetch('/todos/new', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+                    modal.hide();
+
+                    location.reload();
+                } else {
+                    console.error('할 일 추가 실패');
+                }
+            })
+            .catch(error => {
+                console.error('할 일 추가 실패', error);
+            });
+    });
+
+    // 엔터키 이벤트
+    form.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 폼의 기본 동작 방지
+        }
+    });
+
+</script>
 </body>
 </html>
