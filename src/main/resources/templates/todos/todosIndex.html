@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 15%; text-align: center">check</th>
+                <th style="width: 85%">오늘 할 일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="todo : ${todosList}">
+                <td style="text-align: center">
+                    <input type="checkbox" th:checked="${todo.isComplete()}">
+                </td>
+                <td th:text="${todo.content}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
