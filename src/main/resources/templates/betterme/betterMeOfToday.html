@@ -32,7 +32,8 @@
         <div th:each="habit : ${betterMeOfTodayResponseDto.getHabits()}">
             <br>
             <p>
-                <a class="btn btn-lg text-white" style="background-color: #f8d7da" th:href="${habit.value}">
+                <a class="btn btn-lg text-white" style="background-color: #f8d7da"
+                   th:href="@{${habit.value}(betterMeId=${betterMeOfTodayResponseDto.getId()})}">
                     <span th:text="${habit.key}"></span>
                 </a>
             </p>
