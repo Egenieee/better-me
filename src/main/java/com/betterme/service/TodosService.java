@@ -1,6 +1,7 @@
 package com.betterme.service;
 
 import com.betterme.domain.dto.todos.TodosResponseDto;
+import com.betterme.domain.dto.todos.TodosSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Todos;
 import com.betterme.repository.BetterMeRepository;
@@ -25,6 +26,16 @@ public class TodosService {
     private BetterMe findBetterMeById(Long betterMeId) {
         return betterMeRepository.findById(betterMeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 Better Me가 존재하지 않습니다. better me = " + betterMeId));
+    }
+
+    public Long save(TodosSaveRequestDto requestDto) {
+        BetterMe betterMe = findBetterMeById(Long.parseLong(requestDto.getBetterMeId()));
+
+        Long savedTodosId = todosRepository.save(requestDto.toEntity(betterMe)).getId();
+
+        log.info("Todos is saved with todos id = " + savedTodosId);
+
+        return savedTodosId;
     }
 
     public List<TodosResponseDto> getTodosList(Long betterMeId) {
