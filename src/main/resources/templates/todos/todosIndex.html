@@ -13,14 +13,15 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th style="width: 15%; text-align: center">check</th>
+                <th style="width: 15%; text-align: center">완료 여부</th>
                 <th style="width: 85%">오늘 할 일</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="todo : ${todosList}">
                 <td style="text-align: center">
-                    <input type="checkbox" th:checked="${todo.isComplete()}">
+                    <span th:unless="${todo.isComplete()}" class="text-muted">미완료</span>
+                    <span th:if="${todo.isComplete()}" class="text-success">완료</span>
                 </td>
                 <td>
                     <a th:href="@{/todos/{todosId} (todosId=${todo.getTodosId()})}" th:text="${todo.content}"></a>
