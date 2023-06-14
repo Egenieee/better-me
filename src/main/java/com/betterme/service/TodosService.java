@@ -34,6 +34,12 @@ public class TodosService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 Better Me가 존재하지 않습니다. better me = " + betterMeId));
     }
 
+    public Long findBetterMeId(Long todosId) {
+        Todos todos = findTodos(todosId);
+
+        return todos.getBetterMe().getId();
+    }
+
     @Transactional
     public Long save(TodosSaveRequestDto requestDto) {
         BetterMe betterMe = findBetterMeById(Long.parseLong(requestDto.getBetterMeId()));
@@ -76,4 +82,11 @@ public class TodosService {
         log.info("Todos is update withed todos id = " + todosId);
     }
 
+    @Transactional
+    public void delete(Long todosId) {
+        Todos todos = findTodos(todosId);
+        todosRepository.delete(todos);
+
+        log.info("Todos is delete with todos id = " + todosId);
+    }
 }

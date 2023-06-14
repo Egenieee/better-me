@@ -64,4 +64,14 @@ public class TodosController {
 
         return "redirect:/todos";
     }
+
+    @DeleteMapping("/todos/{todosId}")
+    public String delete(@PathVariable Long todosId, RedirectAttributes redirectAttributes) {
+        Long betterMeId = todosService.findBetterMeId(todosId);
+        redirectAttributes.addAttribute("betterMeId", betterMeId);
+
+        todosService.delete(todosId);
+
+        return "redirect:/todos";
+    }
 }
