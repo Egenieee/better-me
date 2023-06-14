@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <form th:action="@{/todos/{todosId} (todosId=${todosUpdateRequestDto.getTodosId()})}"
+          th:object="${todosUpdateRequestDto}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" id="todosId" name="todosId" th:value="${todosUpdateRequestDto.todosId}">
+        <input type="hidden" id="betterMeId" name="betterMeId" th:value="${todosUpdateRequestDto.betterMeId}">
+
+        <div>
+            <h4 class="text-muted">오늘 할 일 수정</h4>
+            <br>
+        </div>
+        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+
+        <div class="form-group">
+            <label th:for="content">할 일</label>
+
+            <input type="text" th:field="*{content}" class="form-control" placeholder="할 일을 입력하세요‍ ✅"
+                   th:class="${#fields.hasErrors('content')}? 'form-control fieldError' : 'form-control'">
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label th:for="complete">완료 여부 check &nbsp;</label>
+            <input type="checkbox" th:checked="${todosUpdateRequestDto.isComplete}" th:field="*{isComplete}"
+                   style="scale: 1.5">
+        </div>
+
+        <a th:href="@{/todos (betterMeId=${todosUpdateRequestDto.getBetterMeId()})}" role="button"
+           class="btn btn-secondary">취소</a>
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a href="#" th:href="'javascript:deleteTodos('+${todosUpdateRequestDto.getTodosId()}+')'"
+           class="btn btn-danger">삭제</a>
+    </form>
+
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+<script>
+
+    // 할 일 삭제 함수
+    function deleteTodos(todoId) {
+        if (confirm('정말로 할 일을 삭제하시겠습니까?')) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/todos/" + todoId);
+
+            // DELETE 메서드 전송을 위한 숨겨진 필드 생성
+            var methodField = document.createElement('input');
+            methodField.setAttribute("type", "hidden");
+            methodField.setAttribute("name", "_method");
+            methodField.setAttribute("value", "DELETE");
+
+            // 폼에 숨겨진 필드 추가
+            form.appendChild(methodField);
+
+            // 폼을 문서에 추가
+            document.body.appendChild(form);
+
+            // 폼 전송
+            form.submit();
+        }
+    }
+
+</script>
+</body>
+</html>
