@@ -30,4 +30,9 @@ public class Todos extends BaseTimeEntity {
         this.content = content;
         this.isCompleted = false;
     }
+
+    public void update(String content, boolean isCompleted) {
+        this.content = content;
+        this.isCompleted = isCompleted;
+    }
 }

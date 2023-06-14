@@ -67,4 +67,13 @@ public class TodosService {
                 .betterMeId(todos.getBetterMe().getId())
                 .build();
     }
+
+    @Transactional
+    public void update(Long todosId, TodosUpdateRequestDto requestDto) {
+        Todos todos = findTodos(todosId);
+        todos.update(requestDto.getContent(), requestDto.getIsComplete());
+
+        log.info("Todos is update withed todos id = " + todosId);
+    }
+
 }
