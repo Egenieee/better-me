@@ -33,8 +33,10 @@ public class BetterMeController {
         }
 
         boolean hasBetterMeOfToday = betterMeService.hasBetterMeOfToday(principal.getName(), LocalDate.now());
+        boolean hasBetterMesOfPast = betterMeService.hasBetterMeOfPast(principal.getName(), LocalDate.now());
 
         model.addAttribute("hasBetterMeOfToday", hasBetterMeOfToday);
+        model.addAttribute("hasBetterMeOfPast", hasBetterMesOfPast);
 
         return "betterme/betterMeIndex";
     }

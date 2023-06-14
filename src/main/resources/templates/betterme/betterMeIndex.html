@@ -23,7 +23,7 @@
                 관리하기</a>
         </div>
         <br>
-        <div th:if="${hasBetterMeOfToday}" sec:authorize="isAuthenticated()">
+        <div th:if="${hasBetterMeOfPast}" sec:authorize="isAuthenticated()">
             <a class="btn btn-lg text-white" style="background-color: #f1b0b7" href="/better-me/past">과거의 내 습관 노트
                 돌아보기</a>
         </div>

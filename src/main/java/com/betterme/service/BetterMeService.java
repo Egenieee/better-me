@@ -47,6 +47,12 @@ public class BetterMeService {
         return users.hasBetterMeOfToday(today);
     }
 
+    public boolean hasBetterMeOfPast(String usersName, LocalDate today) {
+        Users users = findUsersByUsersName(usersName);
+
+        return users.hasBetterMeOfPast(today);
+    }
+
     public Long save(BetterMeSaveRequestDto requestDto) {
         Users users = findUsersByUsersName(requestDto.getUsersName());
         BetterMe betterMe = requestDto.toEntity(users);
