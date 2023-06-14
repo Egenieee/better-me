@@ -2,6 +2,7 @@ package com.betterme.service;
 
 import com.betterme.domain.dto.todos.TodosResponseDto;
 import com.betterme.domain.dto.todos.TodosSaveRequestDto;
+import com.betterme.domain.dto.todos.TodosUpdateRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Todos;
 import com.betterme.repository.BetterMeRepository;
@@ -9,6 +10,7 @@ import com.betterme.repository.TodosRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +24,17 @@ public class TodosService {
 
     private final BetterMeRepository betterMeRepository;
 
+    private Todos findTodos(Long todosId) {
+        return todosRepository.findById(todosId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Todos가 존재하지 않습니다. todos id = " + todosId));
+    }
 
     private BetterMe findBetterMeById(Long betterMeId) {
         return betterMeRepository.findById(betterMeId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 Better Me가 존재하지 않습니다. better me = " + betterMeId));
     }
 
+    @Transactional
     public Long save(TodosSaveRequestDto requestDto) {
         BetterMe betterMe = findBetterMeById(Long.parseLong(requestDto.getBetterMeId()));
 
@@ -48,5 +55,16 @@ public class TodosService {
         }
 
         return todosList;
+    }
+
+    public TodosUpdateRequestDto getUpdateRequestDto(Long todosId) {
+        Todos todos = findTodos(todosId);
+
+        return TodosUpdateRequestDto.builder()
+                .todosId(todos.getId())
+                .content(todos.getContent())
+                .isComplete(todos.isCompleted())
+                .betterMeId(todos.getBetterMe().getId())
+                .build();
     }
 }

@@ -2,6 +2,7 @@ package com.betterme.controller;
 
 import com.betterme.domain.dto.todos.TodosResponseDto;
 import com.betterme.domain.dto.todos.TodosSaveRequestDto;
+import com.betterme.domain.dto.todos.TodosUpdateRequestDto;
 import com.betterme.service.TodosService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -41,5 +43,13 @@ public class TodosController {
         todosService.save(requestDto);
 
         return "todos/todosIndex";
+    }
+
+    @GetMapping("/todos/{todosId}")
+    public String findById(Model model, @PathVariable Long todosId) {
+        TodosUpdateRequestDto requestDto = todosService.getUpdateRequestDto(todosId);
+        model.addAttribute("todosUpdateRequestDto", requestDto);
+
+        return "todos/updateTodosForm";
     }
 }
