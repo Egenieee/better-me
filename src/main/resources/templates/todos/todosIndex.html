@@ -22,7 +22,9 @@
                 <td style="text-align: center">
                     <input type="checkbox" th:checked="${todo.isComplete()}">
                 </td>
-                <td th:text="${todo.content}"></td>
+                <td>
+                    <a th:href="@{/todos/{todosId} (todosId=${todo.getTodosId()})}" th:text="${todo.content}"></a>
+                </td>
             </tr>
             </tbody>
         </table>
