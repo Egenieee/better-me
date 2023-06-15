@@ -1,7 +1,7 @@
 package com.betterme.controller;
 
 import com.betterme.domain.dto.betterme.BetterMeOfPastResponseDto;
-import com.betterme.domain.dto.betterme.BetterMeOfTodayResponseDto;
+import com.betterme.domain.dto.betterme.BetterMeResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.service.BetterMeService;
 import jakarta.validation.Valid;
@@ -98,6 +98,20 @@ public class BetterMeController {
         return "betterme/betterMeListOfPast";
     }
 
+    @GetMapping("/better-me/past/{betterMeId}")
+    public String getBetterMeOfPast(@PathVariable Long betterMeId, Model model, Principal principal) {
+
+        if (principal == null) {
+            return "users/loginForm";
+        }
+
+        BetterMeResponseDto responseDto = betterMeService.getBetterMeOfPast(betterMeId);
+
+        model.addAttribute("betterMeResponseDto", responseDto);
+
+        return "/betterme/betterMeOfPast";
+    }
+
 
     @GetMapping("/better-me/today")
     public String getBetterMeOfToday(Model model, Principal principal) {
@@ -106,7 +120,7 @@ public class BetterMeController {
             return "users/loginForm";
         }
 
-        BetterMeOfTodayResponseDto responseDto = betterMeService.getBetterMeOfToday(principal.getName(), LocalDate.now());
+        BetterMeResponseDto responseDto = betterMeService.getBetterMeOfToday(principal.getName(), LocalDate.now());
 
         model.addAttribute("betterMeOfTodayResponseDto", responseDto);
 

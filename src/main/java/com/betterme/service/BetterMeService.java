@@ -1,7 +1,7 @@
 package com.betterme.service;
 
 import com.betterme.domain.dto.betterme.BetterMeOfPastResponseDto;
-import com.betterme.domain.dto.betterme.BetterMeOfTodayResponseDto;
+import com.betterme.domain.dto.betterme.BetterMeResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Users;
@@ -81,11 +81,17 @@ public class BetterMeService {
         return getBetterMeOfPastList(users);
     }
 
-    public BetterMeOfTodayResponseDto getBetterMeOfToday(String usersName, LocalDate today) {
+    public BetterMeResponseDto getBetterMeOfToday(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
         BetterMe betterMe = getBetterMeOfToday(users, today);
 
-        return new BetterMeOfTodayResponseDto(betterMe);
+        return new BetterMeResponseDto(betterMe);
+    }
+
+    public BetterMeResponseDto getBetterMeOfPast(Long betterMeId) {
+        BetterMe betterMe = findBetterMeById(betterMeId);
+
+        return new BetterMeResponseDto(betterMe);
     }
 
     @Transactional
