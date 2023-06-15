@@ -52,13 +52,13 @@ public class BetterMeService {
     public boolean hasBetterMeOfToday(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
 
-        return users.hasBetterMeOfToday(today);
+        return hasBetterMeOfToday(users, today);
     }
 
     public boolean hasBetterMeOfPast(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
 
-        return users.hasBetterMeOfPast(today);
+        return hasBetterMeOfPast(users, today);
     }
 
     @Transactional
@@ -78,12 +78,12 @@ public class BetterMeService {
     public List<BetterMeOfPastResponseDto> getBetterMeOfPastResponseDto(String usersName) {
         Users users = findUsersByUsersName(usersName);
 
-        return users.getBetterMeOfPastList();
+        return getBetterMeOfPastList(users);
     }
 
     public BetterMeOfTodayResponseDto getBetterMeOfToday(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
-        BetterMe betterMe = users.getBetterMeOfToday(today);
+        BetterMe betterMe = getBetterMeOfToday(users, today);
 
         return new BetterMeOfTodayResponseDto(betterMe);
     }
@@ -94,5 +94,29 @@ public class BetterMeService {
         betterMeRepository.delete(betterMe);
 
         log.info("BetterMe is delete with better me id = " + betterMeId);
+    }
+
+    public boolean hasBetterMeOfToday(Users users, LocalDate today) {
+        return users.getBetterMes().stream()
+                .anyMatch(betterMe -> betterMe.getCreatedDate().toLocalDate().isEqual(today));
+    }
+
+    public boolean hasBetterMeOfPast(Users users, LocalDate today) {
+        return users.getBetterMes().stream()
+                .anyMatch(betterMe -> betterMe.getCreatedDate().toLocalDate().isBefore(today));
+    }
+
+    public BetterMe getBetterMeOfToday(Users users, LocalDate today) {
+        return users.getBetterMes().stream()
+                .filter(betterMe -> betterMe.getCreatedDate().toLocalDate().isEqual(today))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<BetterMeOfPastResponseDto> getBetterMeOfPastList(Users users) {
+        return users.getBetterMes().stream()
+                .filter(betterMe -> betterMe.getCreatedDate().toLocalDate().isBefore(LocalDate.now()))
+                .map(BetterMeOfPastResponseDto::new)
+                .toList();
     }
 }

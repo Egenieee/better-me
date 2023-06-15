@@ -1,12 +1,10 @@
 package com.betterme.domain.entity;
 
-import com.betterme.domain.dto.betterme.BetterMeOfPastResponseDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,48 +48,5 @@ public class Users extends BaseTimeEntity {
         this.nickname = nickname;
         this.email = email;
         this.slogan = slogan;
-    }
-
-    public boolean hasBetterMeOfToday(LocalDate today) {
-        for (BetterMe betterMe : betterMes) {
-            if (betterMe.getCreatedDate().toLocalDate().isEqual(today)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean hasBetterMeOfPast(LocalDate today) {
-        for (BetterMe betterMe : betterMes) {
-            if (betterMe.getCreatedDate().toLocalDate().isBefore(today)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public BetterMe getBetterMeOfToday(LocalDate today) {
-        for (BetterMe betterMe : betterMes) {
-            if (betterMe.getCreatedDate().toLocalDate().isEqual(today)) {
-                return betterMe;
-            }
-        }
-
-        return null;
-    }
-
-    public List<BetterMeOfPastResponseDto> getBetterMeOfPastList() {
-        LocalDate today = LocalDate.now();
-        List<BetterMeOfPastResponseDto> responseDtoList = new ArrayList<>();
-
-        for (BetterMe betterMe : betterMes) {
-            if (betterMe.getCreatedDate().toLocalDate().isBefore(today)) {
-                responseDtoList.add(new BetterMeOfPastResponseDto(betterMe));
-            }
-        }
-
-        return responseDtoList;
     }
 }
