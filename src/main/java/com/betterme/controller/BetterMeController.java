@@ -9,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -97,6 +95,13 @@ public class BetterMeController {
         model.addAttribute("betterMeOfTodayResponseDto", responseDto);
 
         return "betterme/betterMeOfToday";
+    }
+
+    @DeleteMapping("/better-me/{betterMeId}")
+    public String delete(@PathVariable Long betterMeId) {
+        betterMeService.delete(betterMeId);
+
+        return "redirect:/better-me";
     }
 
 }

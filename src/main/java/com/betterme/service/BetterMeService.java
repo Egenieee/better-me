@@ -9,6 +9,7 @@ import com.betterme.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,11 @@ public class BetterMeService {
 
     private final BetterMeRepository betterMeRepository;
     private final UsersRepository usersRepository;
+
+    private BetterMe findBetterMeById(Long betterMeId) {
+        return betterMeRepository.findById(betterMeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Better Me가 존재하지 않습니다. better me = " + betterMeId));
+    }
 
     private Users findUsersByUsersName(String usersName) {
         return usersRepository.findByUsersName(usersName)
@@ -53,6 +59,7 @@ public class BetterMeService {
         return users.hasBetterMeOfPast(today);
     }
 
+    @Transactional
     public Long save(BetterMeSaveRequestDto requestDto) {
         Users users = findUsersByUsersName(requestDto.getUsersName());
         BetterMe betterMe = requestDto.toEntity(users);
@@ -71,5 +78,13 @@ public class BetterMeService {
         BetterMe betterMe = users.getBetterMeOfToday(today);
 
         return new BetterMeOfTodayResponseDto(betterMe);
+    }
+
+    @Transactional
+    public void delete(Long betterMeId) {
+        BetterMe betterMe = findBetterMeById(betterMeId);
+        betterMeRepository.delete(betterMe);
+
+        log.info("BetterMe is delete with better me id = " + betterMeId);
     }
 }

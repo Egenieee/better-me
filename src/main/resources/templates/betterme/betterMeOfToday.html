@@ -39,10 +39,40 @@
             </p>
             <br>
         </div>
+
+        <a href="#" th:href="'javascript:deleteBetterMe('+${betterMeOfTodayResponseDto.getId()}+')'"
+           class="btn btn-lg text-white" style="background-color: #ed969e">습관 노트 삭제</a>
     </div>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
 </div> <!-- /container -->
 
 </body>
+<script>
+
+    // 습관 노트 삭제 함수
+    function deleteBetterMe(betterMeId) {
+        if (confirm('정말로 오늘의 습관 노트를 삭제하시겠습니까?')) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/better-me/" + betterMeId);
+
+            // DELETE 메서드 전송을 위한 숨겨진 필드 생성
+            var methodField = document.createElement('input');
+            methodField.setAttribute("type", "hidden");
+            methodField.setAttribute("name", "_method");
+            methodField.setAttribute("value", "DELETE");
+
+            // 폼에 숨겨진 필드 추가
+            form.appendChild(methodField);
+
+            // 폼을 문서에 추가
+            document.body.appendChild(form);
+
+            // 폼 전송
+            form.submit();
+        }
+    }
+
+</script>
 </html>
