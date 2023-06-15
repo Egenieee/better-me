@@ -1,5 +1,6 @@
 package com.betterme.service;
 
+import com.betterme.domain.dto.betterme.BetterMeOfPastResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeOfTodayResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -71,6 +73,12 @@ public class BetterMeService {
         log.info("BetterMe is saved with users id = " + betterMe.getId());
 
         return betterMe.getId();
+    }
+
+    public List<BetterMeOfPastResponseDto> getBetterMeOfPastResponseDto(String usersName) {
+        Users users = findUsersByUsersName(usersName);
+
+        return users.getBetterMeOfPastList();
     }
 
     public BetterMeOfTodayResponseDto getBetterMeOfToday(String usersName, LocalDate today) {

@@ -1,5 +1,6 @@
 package com.betterme.controller;
 
+import com.betterme.domain.dto.betterme.BetterMeOfPastResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeOfTodayResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.service.BetterMeService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -80,6 +82,20 @@ public class BetterMeController {
         betterMeService.save(requestDto);
 
         return "redirect:/better-me";
+    }
+
+    @GetMapping("/better-me/past")
+    public String getBetterMeListOfPast(Model model, Principal principal) {
+
+        if (principal == null) {
+            return "users/loginForm";
+        }
+
+        List<BetterMeOfPastResponseDto> responseDtoList = betterMeService.getBetterMeOfPastResponseDto(principal.getName());
+
+        model.addAttribute("betterMeListResponseDto", responseDtoList);
+
+        return "betterme/betterMeListOfPast";
     }
 
 

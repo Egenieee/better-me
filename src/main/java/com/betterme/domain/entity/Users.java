@@ -1,5 +1,6 @@
 package com.betterme.domain.entity;
 
+import com.betterme.domain.dto.betterme.BetterMeOfPastResponseDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -79,5 +80,18 @@ public class Users extends BaseTimeEntity {
         }
 
         return null;
+    }
+
+    public List<BetterMeOfPastResponseDto> getBetterMeOfPastList() {
+        LocalDate today = LocalDate.now();
+        List<BetterMeOfPastResponseDto> responseDtoList = new ArrayList<>();
+
+        for (BetterMe betterMe : betterMes) {
+            if (betterMe.getCreatedDate().toLocalDate().isBefore(today)) {
+                responseDtoList.add(new BetterMeOfPastResponseDto(betterMe));
+            }
+        }
+
+        return responseDtoList;
     }
 }
