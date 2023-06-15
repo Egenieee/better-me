@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 15%; text-align: center">#</th>
+                <th style="width: 70%">지난 습관 노트</th>
+                <th style="width: 15%; text-align: center">성취도</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="betterMe, rowStat : ${betterMeListResponseDto}">
+                <td th:text="${rowStat.count}" style="text-align: center"></td>
+                <td>
+                    <a th:href="@{/better-me/past/{betterMeId} (betterMeId=${betterMe.betterMeId})}"
+                       th:text="${betterMe.date}"></a>
+                </td>
+                <td style="text-align: center">
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+<script>
+
+</script>
+</body>
+</html>
