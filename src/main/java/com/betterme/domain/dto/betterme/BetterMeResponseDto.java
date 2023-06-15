@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.Map;
 
 @Getter
-public class BetterMeOfTodayResponseDto {
+public class BetterMeResponseDto {
 
     private final Long id;
     private final String usersName;
@@ -15,7 +15,7 @@ public class BetterMeOfTodayResponseDto {
     private final Map<String, String> habits;
 
     @Builder
-    public BetterMeOfTodayResponseDto(BetterMe betterMe) {
+    public BetterMeResponseDto(BetterMe betterMe) {
         this.id = betterMe.getId();
         this.usersName = betterMe.getUsers().getUsersName();
         this.habits = betterMe.getHabitsAndUrl();
