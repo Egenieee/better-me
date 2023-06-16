@@ -1,0 +1,84 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container" th:object="${betterMeResponseDto}">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div class="jumbotron" style="background-color: lavenderblush !important;">
+        <h4 style="text-align: right" class="text-black-50" th:text="${betterMeResponseDto.date}"></h4>
+        <br>
+        <div class="jumbotron" style="background-color: #ffe3e3">
+            <h5 style="color: #e37883">바른 습관 성취도</h5>
+            <!--            <p sec:authorize="isAuthenticated()">-->
+            <!--                <a class="btn btn-lg text-white" style="background-color: #f5c6cb" href="/better-me/brief">오늘의 Better Me 성취도</a>-->
+            <!--            </p>-->
+            <br>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                     aria-label="Basic example" th:style="'width: ' + ${betterMeResponseDto.getProgress()} + '%'"
+                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span
+                        th:text="${betterMeResponseDto.getProgress()} + '%'"></span>
+                </div>
+            </div>
+        </div>
+
+        <div th:each="habit : ${betterMeResponseDto.getHabits()}">
+            <br>
+            <p>
+                <a class="btn btn-lg text-black-50" style="background-color: #f8d7da"
+                   th:href="@{${habit.value}(betterMeId=${betterMeResponseDto.getId()})}">
+                    <span th:text="${habit.key}"></span>
+                </a>
+            </p>
+            <br>
+        </div>
+
+    </div>
+
+    <div style="display: flex; justify-content: flex-end;">
+        <a href="/better-me/past" class="btn btn-secondary" style="margin-right: 10px;">습관 노트 리스트 보기</a>
+        <a href="#" th:href="'javascript:deleteBetterMe('+${betterMeResponseDto.getId()}+')'"
+           class="btn btn-danger">습관 노트 삭제</a>
+    </div>
+
+    <br>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+<script>
+
+    // 습관 노트 삭제 함수
+    function deleteBetterMe(betterMeId) {
+        if (confirm('정말로 습관 노트를 삭제하시겠습니까?')) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/better-me/" + betterMeId);
+
+            // DELETE 메서드 전송을 위한 숨겨진 필드 생성
+            var methodField = document.createElement('input');
+            methodField.setAttribute("type", "hidden");
+            methodField.setAttribute("name", "_method");
+            methodField.setAttribute("value", "DELETE");
+
+            // 폼에 숨겨진 필드 추가
+            form.appendChild(methodField);
+
+            // 폼을 문서에 추가
+            document.body.appendChild(form);
+
+            // 폼 전송
+            form.submit();
+        }
+    }
+
+</script>
+</html>
