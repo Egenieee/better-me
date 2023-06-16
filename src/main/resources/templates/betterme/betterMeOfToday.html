@@ -12,7 +12,7 @@
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
     <div class="jumbotron" style="background-color: lavenderblush !important;">
-        <h1 style="color: #ed969e">Better me</h1>
+        <h4 style="text-align: right" class="text-black-50" th:text="${betterMeOfTodayResponseDto.date}"></h4>
         <br>
         <div class="jumbotron" style="background-color: #ffe3e3">
             <h5 style="color: #e37883">오늘의 바른 습관 성취도</h5>
@@ -40,9 +40,14 @@
             <br>
         </div>
 
-        <a href="#" th:href="'javascript:deleteBetterMe('+${betterMeOfTodayResponseDto.getId()}+')'"
-           class="btn btn-lg text-white" style="background-color: #ed969e">습관 노트 삭제</a>
     </div>
+
+    <div style="display: flex; justify-content: flex-end;">
+        <a href="#" th:href="'javascript:deleteBetterMe('+${betterMeOfTodayResponseDto.getId()}+')'"
+           class="btn btn-danger">습관 노트 삭제</a>
+    </div>
+
+    <br>
 
     <div th:replace="~{fragments/footer :: footer}"></div>
 </div> <!-- /container -->
