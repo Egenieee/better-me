@@ -8,7 +8,17 @@
 
 <div class="container">
 
-    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <div class="header">
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="/better-me">
+                <h3 class="text-muted">Better me</h3>
+            </a>
+            <a href="/better-me/today">
+                <h3 class="text-muted">today</h3>
+            </a>
+        </div>
+    </div>
 
     <form role="form" action="/sleeps/new" th:object="${sleepsSaveRequestDto}" method="post">
         <input type="hidden" id="betterMeId" name="betterMeId" th:value="${betterMeId}">
