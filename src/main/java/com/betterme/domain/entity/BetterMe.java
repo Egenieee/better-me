@@ -29,6 +29,9 @@ public class BetterMe extends BaseTimeEntity {
     @OneToMany(mappedBy = "betterMe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todos> todos = new ArrayList<>();
 
+    @OneToOne(mappedBy = "betterMe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Sleeps sleeps;
+
     @Builder
     public BetterMe(Users users) {
         this.users = users;
