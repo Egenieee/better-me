@@ -50,9 +50,10 @@ public class SleepsController {
     }
 
     @PostMapping("/sleeps/new")
-    public String save(@Valid SleepsSaveRequestDto requestDto, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String save(@Valid SleepsSaveRequestDto requestDto, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("betterMeId", requestDto.getBetterMeId());
             return "sleeps/createSleepsForm";
         }
 
