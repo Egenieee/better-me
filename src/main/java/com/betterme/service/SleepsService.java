@@ -1,5 +1,6 @@
 package com.betterme.service;
 
+import com.betterme.domain.dto.sleeps.SleepsResponseDto;
 import com.betterme.domain.dto.sleeps.SleepsSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Sleeps;
@@ -18,6 +19,11 @@ public class SleepsService {
     private final SleepsRepository sleepsRepository;
 
     private final BetterMeRepository betterMeRepository;
+
+    private Sleeps findSleeps(Long sleepsId) {
+        return sleepsRepository.findById(sleepsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Sleeps가 존재하지 않습니다. sleeps id = " + sleepsId));
+    }
 
     private BetterMe findBetterMe(Long betterMeId) {
         return betterMeRepository.findById(betterMeId)
@@ -49,5 +55,9 @@ public class SleepsService {
         return savedSleepsId;
     }
 
+    public SleepsResponseDto getSleepsResponseDto(Long sleepsId) {
+        Sleeps sleeps = findSleeps(sleepsId);
 
+        return new SleepsResponseDto(sleeps);
+    }
 }
