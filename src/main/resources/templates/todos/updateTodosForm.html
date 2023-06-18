@@ -46,11 +46,14 @@
                    style="scale: 1.5">
         </div>
 
-        <a th:href="@{/todos (betterMeId=${todosUpdateRequestDto.getBetterMeId()})}" role="button"
-           class="btn btn-secondary">취소</a>
-        <button type="submit" class="btn btn-primary">저장</button>
-        <a href="#" th:href="'javascript:deleteTodos('+${todosUpdateRequestDto.getTodosId()}+')'"
-           class="btn btn-danger">삭제</a>
+        <div style="display: flex; justify-content: flex-end; gap: 5px">
+            <a th:href="@{/todos (betterMeId=${todosUpdateRequestDto.getBetterMeId()})}" role="button"
+               class="btn btn-secondary">취소</a>
+            <button type="submit" class="btn btn-primary">저장</button>
+            <a href="#" th:href="'javascript:deleteTodos('+${todosUpdateRequestDto.getTodosId()}+')'"
+               class="btn btn-danger">삭제</a>
+        </div>
+
     </form>
 
     <br/>

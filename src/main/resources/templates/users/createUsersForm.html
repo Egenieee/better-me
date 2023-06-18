@@ -46,7 +46,9 @@
             <input type="text" th:field="*{slogan}" class="form-control" placeholder="나만의 슬로건을 입력하세요 🫶🏻"
                    th:class="${#fields.hasErrors('slogan')}? 'form-control fieldError' : 'form-control'">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div style="display: flex; justify-content: flex-end;">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </form>
     <br/>
     <div th:replace="~{fragments/footer :: footer}"></div>

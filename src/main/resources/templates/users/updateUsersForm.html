@@ -43,10 +43,14 @@
             <label th:for="slogan">슬로건</label>
             <input type="text" th:field="*{slogan}" class="form-control" placeholder="나만의 슬로건을 입력하세요 🫶🏻">
         </div>
-        <a href="/" role="button" class="btn btn-secondary">취소</a>
-        <button type="submit" class="btn btn-primary">수정</button>
-        <a href="#" th:href="'javascript:deleteUsers('+${usersUpdateRequestDto.getUsersId()}+')'"
-           class="btn btn-danger">회원 탈퇴</a>
+
+        <div style="display: flex; justify-content: flex-end; gap: 5px">
+            <a href="/" role="button" class="btn btn-secondary">취소</a>
+            <button type="submit" class="btn btn-primary">수정</button>
+            <a href="#" th:href="'javascript:deleteUsers('+${usersUpdateRequestDto.getUsersId()}+')'"
+               class="btn btn-danger">회원 탈퇴</a>
+        </div>
+
     </form>
     <br/>
     <div th:replace="~{fragments/footer :: footer}"></div>
