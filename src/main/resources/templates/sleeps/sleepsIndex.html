@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container" th:object="${sleepsResponseDto}">
+
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div class="jumbotron" style="background-color: white !important;">
+        <div th:unless="${hasSleeps}">
+            <a class="btn btn-lg text-white" style="background-color: #ffb4b4"
+               th:href="@{/sleeps/new (betterMeId=${betterMeId})}">오늘의 새로운 수면 목표 생성</a>
+        </div>
+        <div th:if="${hasSleeps}">
+            <a class="btn btn-lg text-white" style="background-color: #f5c6cb"
+               th:href="@{/sleeps/new (betterMeId=${betterMeId})}">오늘의 수면 목표 관리하기</a>
+        </div>
+
+    </div>
+
+    <br/>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
