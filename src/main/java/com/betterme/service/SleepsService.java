@@ -21,10 +21,16 @@ public class SleepsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 Better Me가 존재하지 않습니다. id = " + betterMeId));
     }
 
-    public boolean hasSleeps(Long betterMeId) {
-        BetterMe betterMe = findBetterMe(betterMeId);
+    public boolean hasSleeps(String betterMeId) {
+        BetterMe betterMe = findBetterMe(Long.parseLong(betterMeId));
 
         return betterMe.getSleeps() != null;
+    }
+
+    public Long getSleepsId(String betterId) {
+        BetterMe betterMe = findBetterMe(Long.parseLong(betterId));
+
+        return betterMe.getSleeps().getId();
     }
 
 }

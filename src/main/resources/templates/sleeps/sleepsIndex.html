@@ -17,7 +17,7 @@
         </div>
         <div th:if="${hasSleeps}">
             <a class="btn btn-lg text-white" style="background-color: #f5c6cb"
-               th:href="@{/sleeps/new (betterMeId=${betterMeId})}">오늘의 수면 목표 관리하기</a>
+               th:href="@{/sleeps/{sleepsId} (sleepsId=${sleepsId})}">오늘의 수면 목표 관리하기</a>
         </div>
 
     </div>

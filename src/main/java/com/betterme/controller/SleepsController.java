@@ -16,7 +16,11 @@ public class SleepsController {
     @GetMapping("/sleeps")
     public String getSleepsIndex(Model model, @RequestParam String betterMeId) {
         model.addAttribute("betterMeId", betterMeId);
-        model.addAttribute("hasSleeps", sleepsService.hasSleeps(Long.parseLong(betterMeId)));
+        model.addAttribute("hasSleeps", sleepsService.hasSleeps(betterMeId));
+
+        if (sleepsService.hasSleeps(betterMeId)) {
+            model.addAttribute("sleepsId", sleepsService.getSleepsId(betterMeId));
+        }
 
         return "sleeps/sleepsIndex";
     }
