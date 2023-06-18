@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+
+    <div class="header">
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="/better-me">
+                <h3 class="text-muted">Better me</h3>
+            </a>
+            <a href="/better-me/today">
+                <h3 class="text-muted">today</h3>
+            </a>
+        </div>
+    </div>
+
+    <form role="form" th:action="@{/sleeps/{sleepsId} (sleepsId=${sleepsUpdateRequestDto.getSleepsId()})}"
+          th:object="${sleepsUpdateRequestDto}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" id="sleepsId" name="sleepsId" th:value="${sleepsUpdateRequestDto.sleepsId}">
+
+
+        <div>
+            <h4 class="text-muted">목표 수면 시간 수정</h4>
+            <br>
+        </div>
+
+        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+
+        <div class="form-group">
+            <label th:for="sleepTime">취침 날짜</label>
+            <input type="text" class="form-control" th:field="*{sleepDate}" readonly>
+
+        </div>
+        <div class="form-group">
+            <label th:for="sleepTime">취침 시간</label>
+            <input type="text" th:field="*{sleepTime}" class="form-control" placeholder="취침 시간을 입력해주세요. 예시) 22:00"
+                   th:class="${#fields.hasErrors('sleepTime')}? 'form-control fieldError' : 'form-control'" required>
+        </div>
+        <br>
+        <div class="form-group">
+            <label th:for="wakeUpDate">기상 날짜</label>
+            <input type="text" th:field="*{wakeUpDate}" class="form-control" placeholder="기상 날짜를 입력해주세요. 예시) 2024-01-01"
+                   th:class="${#fields.hasErrors('wakeUpDate')}? 'form-control fieldError' : 'form-control'" required>
+        </div>
+        <div class="form-group">
+            <label th:for="wakeUpTime">기상 시간</label>
+            <input type="text" th:field="*{wakeUpTime}" class="form-control" placeholder="기상 시간을 입력해주세요. 예시) 07:00"
+                   th:class="${#fields.hasErrors('wakeUpTime')}? 'form-control fieldError' : 'form-control'" required>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label th:for="complete">성공 여부 check &nbsp;</label>
+            <input type="checkbox" th:checked="${sleepsUpdateRequestDto.isSuccess}" th:field="*{isSuccess}"
+                   style="scale: 1.5">
+        </div>
+
+        <br>
+        <div style="display: flex; justify-content: flex-end; gap: 5px">
+            <a class="btn btn-secondary"
+               th:href="@{/sleeps/{sleepsId} (sleepsId=${sleepsUpdateRequestDto.getSleepsId()})}">취소</a>
+            <button type="submit" class="btn btn-primary">저장</button>
+        </div>
+
+    </form>
+
+    <br/>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
