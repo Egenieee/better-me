@@ -40,4 +40,11 @@ public class Sleeps extends BaseTimeEntity {
         this.wakeUpTime = wakeUpTime;
         this.isSuccess = false;
     }
+
+    public void update(LocalDateTime sleepTime, LocalDateTime wakeUpTime, boolean isSuccess) {
+        this.sleepTime = sleepTime;
+        this.wakeUpTime = wakeUpTime;
+        this.isSuccess = isSuccess;
+        this.sleepGoal = Duration.between(sleepTime, wakeUpTime).toMinutes();
+    }
 }

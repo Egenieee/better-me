@@ -2,6 +2,7 @@ package com.betterme.service;
 
 import com.betterme.domain.dto.sleeps.SleepsResponseDto;
 import com.betterme.domain.dto.sleeps.SleepsSaveRequestDto;
+import com.betterme.domain.dto.sleeps.SleepsUpdateRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Sleeps;
 import com.betterme.repository.BetterMeRepository;
@@ -10,6 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -59,5 +65,30 @@ public class SleepsService {
         Sleeps sleeps = findSleeps(sleepsId);
 
         return new SleepsResponseDto(sleeps);
+    }
+
+    public SleepsUpdateRequestDto getSleepsUpdateRequestDto(Long sleepsId) {
+        Sleeps sleeps = findSleeps(sleepsId);
+
+        return SleepsUpdateRequestDto.builder()
+                .sleepsId(sleeps.getId())
+                .sleepDate(sleeps.getSleepTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .sleepTime(sleeps.getSleepTime().format(DateTimeFormatter.ofPattern("HH:mm")))
+                .wakeUpDate(sleeps.getWakeUpTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .wakeUpTime(sleeps.getWakeUpTime().format(DateTimeFormatter.ofPattern("HH:mm")))
+                .isSuccess(sleeps.isSuccess())
+                .build();
+    }
+
+    @Transactional
+    public void update(SleepsUpdateRequestDto requestDto) {
+        Sleeps sleeps = findSleeps(requestDto.getSleepsId());
+
+        LocalDateTime sleepDateTime = LocalDate.parse(requestDto.getSleepDate()).atTime(LocalTime.parse(requestDto.getSleepTime()));
+        LocalDateTime wakeUpDateTime = LocalDate.parse(requestDto.getWakeUpDate()).atTime(LocalTime.parse(requestDto.getWakeUpTime()));
+
+        sleeps.update(sleepDateTime, wakeUpDateTime, requestDto.getIsSuccess());
+
+        log.info("sleeps is updated with sleeps id = " + requestDto.getSleepsId());
     }
 }
