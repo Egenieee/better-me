@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container" th:object="${sleepsResponseDto}">
+
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 20%; text-align: center">성공 여부</th>
+                <th style="width: 30%">취침 시간 (<span th:text="${sleepsResponseDto.getSleepDate()}"></span>)</th>
+                <th style="width: 30%">기상 시간 (<span th:text="${sleepsResponseDto.getWakeUpDate()}"></span>)</th>
+                <th style="width: 20%; text-align: center">수면 목표</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td style="text-align: center">
+                    <span th:unless="${sleepsResponseDto.getIsSuccess()}" class="text-muted">실패</span>
+                    <span th:if="${sleepsResponseDto.getIsSuccess()}" class="text-success">성공</span>
+                </td>
+                <td th:text="${sleepsResponseDto.getSleepTime()}"></td>
+                <td th:text="${sleepsResponseDto.getWakeUpTime()}"></td>
+                <td style="text-align: center" th:text="${sleepsResponseDto.getSleepsGoal()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    <div style="display: flex; justify-content: flex-end; gap: 5px">
+        <a href="#" th:href="@{/sleeps/{sleepsId}/edit (sleepsId=${sleepsResponseDto.getSleepsId()})}"
+           class="btn btn-primary">수정</a>
+        <a href="#" th:href="'javascript:deleteSleeps('+${sleepsResponseDto.getSleepsId()}+')'" class="btn btn-danger">삭제</a>
+    </div>
+
+    <br>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
