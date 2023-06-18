@@ -1,11 +1,16 @@
 package com.betterme.controller;
 
+import com.betterme.domain.dto.sleeps.SleepsSaveRequestDto;
 import com.betterme.service.SleepsService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,5 +28,27 @@ public class SleepsController {
         }
 
         return "sleeps/sleepsIndex";
+    }
+
+    @GetMapping("/sleeps/new")
+    public String createSleepsForm(Model model, @RequestParam String betterMeId) {
+        model.addAttribute("sleepsSaveRequestDto", new SleepsSaveRequestDto());
+        model.addAttribute("betterMeId", betterMeId);
+
+        return "sleeps/createSleepsForm";
+    }
+
+    @PostMapping("/sleeps/new")
+    public String save(@Valid SleepsSaveRequestDto requestDto, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            return "sleeps/createSleepsForm";
+        }
+
+        sleepsService.save(requestDto);
+
+        redirectAttributes.addAttribute("betterMeId", requestDto.getBetterMeId());
+
+        return "redirect:/sleeps";
     }
 }

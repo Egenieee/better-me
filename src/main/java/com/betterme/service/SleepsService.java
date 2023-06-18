@@ -1,11 +1,14 @@
 package com.betterme.service;
 
+import com.betterme.domain.dto.sleeps.SleepsSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
+import com.betterme.domain.entity.Sleeps;
 import com.betterme.repository.BetterMeRepository;
 import com.betterme.repository.SleepsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,5 +35,19 @@ public class SleepsService {
 
         return betterMe.getSleeps().getId();
     }
+
+    @Transactional
+    public Long save(SleepsSaveRequestDto requestDto) {
+        BetterMe betterMe = findBetterMe(requestDto.getBetterMeId());
+
+        Sleeps sleeps = requestDto.toEntity(betterMe);
+
+        Long savedSleepsId = sleepsRepository.save(sleeps).getId();
+
+        log.info("sleeps is saved with sleeps id = " + savedSleepsId);
+
+        return savedSleepsId;
+    }
+
 
 }
