@@ -52,4 +52,14 @@ public class NutrientsController {
 
         return "redirect:/nutrients";
     }
+
+    @DeleteMapping("/nutrients/{nutrientsId}")
+    public String delete(@PathVariable Long nutrientsId, RedirectAttributes redirectAttributes) {
+        Long betterMeId = nutrientsService.getBetterMeId(nutrientsId);
+        redirectAttributes.addAttribute("betterMeId", betterMeId);
+
+        nutrientsService.delete(nutrientsId);
+
+        return "redirect:/nutrients";
+    }
 }

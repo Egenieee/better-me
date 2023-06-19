@@ -76,4 +76,19 @@ public class NutrientsService {
 
         log.info("Nutrients is updated with nutrients id = " + nutrients.getId());
     }
+
+    @Transactional
+    public void delete(Long nutrientsId) {
+        Nutrients nutrients = findNutrients(nutrientsId);
+
+        nutrientsRepository.delete(nutrients);
+
+        log.info("Nutrients is deleted with nutrients id = " + nutrientsId);
+    }
+
+    public Long getBetterMeId(Long nutrientsId) {
+        Nutrients nutrients = findNutrients(nutrientsId);
+
+        return nutrients.getBetterMe().getId();
+    }
 }
