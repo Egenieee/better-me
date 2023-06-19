@@ -18,6 +18,7 @@ public class Sleeps extends BaseTimeEntity {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "better_me_id")
     private BetterMe betterMe;
 
     @Column
@@ -34,6 +35,7 @@ public class Sleeps extends BaseTimeEntity {
 
     @Builder
     public Sleeps(BetterMe betterMe, LocalDateTime sleepTime, LocalDateTime wakeUpTime) {
+        betterMe.joinSleeps(this);
         this.betterMe = betterMe;
         this.sleepGoal = Duration.between(sleepTime, wakeUpTime).toMinutes();
         this.sleepTime = sleepTime;

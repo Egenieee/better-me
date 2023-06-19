@@ -29,7 +29,7 @@ public class BetterMe extends BaseTimeEntity {
     @OneToMany(mappedBy = "betterMe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todos> todos = new ArrayList<>();
 
-    @OneToOne(mappedBy = "betterMe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "betterMe")
     private Sleeps sleeps;
 
     @Builder
@@ -41,6 +41,10 @@ public class BetterMe extends BaseTimeEntity {
     public float getProgress() {
         // 추후 개발 예정
         return 33.3f;
+    }
+
+    public void joinSleeps(Sleeps sleeps) {
+        this.sleeps = sleeps;
     }
 
     public void setHabitsAndUrl(List<String> habits) {
