@@ -30,8 +30,8 @@
             <tbody>
             <tr th:each="nutrients : ${nutrientsList}">
                 <td style="text-align: center">
-                    <span th:unless="${nutrients.isTaken()}" class="text-muted">섭취</span>
-                    <span th:if="${nutrients.isTaken()}" class="text-success">미섭취</span>
+                    <span th:unless="${nutrients.isTaken()}" class="text-muted">미섭취</span>
+                    <span th:if="${nutrients.isTaken()}" class="text-success">섭취</span>
                 </td>
                 <td>
                     <a th:href="@{/nutrients/{nutrientsId} (nutrientsId=${nutrients.getNutrientsId()})}"
