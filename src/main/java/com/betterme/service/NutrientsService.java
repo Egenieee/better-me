@@ -67,4 +67,13 @@ public class NutrientsService {
                 .isTaken(nutrients.isTaken())
                 .build();
     }
+
+    @Transactional
+    public void update(Long nutrientsId, NutrientsUpdateRequestDto requestDto) {
+        Nutrients nutrients = findNutrients(nutrientsId);
+
+        nutrients.update(requestDto.getName(), requestDto.getIsTaken());
+
+        log.info("Nutrients is updated with nutrients id = " + nutrients.getId());
+    }
 }

@@ -7,10 +7,8 @@ import com.betterme.service.NutrientsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -44,5 +42,14 @@ public class NutrientsController {
         model.addAttribute("nutrientsUpdateRequestDto", requestDto);
 
         return "nutrients/updateNutrientsForm";
+    }
+
+    @PutMapping("/nutrients/{nutrientsId}")
+    public String update(@PathVariable Long nutrientsId, NutrientsUpdateRequestDto requestDto, RedirectAttributes redirectAttributes) {
+        nutrientsService.update(nutrientsId, requestDto);
+
+        redirectAttributes.addAttribute("betterMeId", requestDto.getBetterMeId());
+
+        return "redirect:/nutrients";
     }
 }

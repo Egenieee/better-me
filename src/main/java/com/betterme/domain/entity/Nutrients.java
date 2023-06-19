@@ -31,4 +31,9 @@ public class Nutrients extends BaseTimeEntity {
         this.isTaken = false;
         betterMe.getNutrients().add(this);
     }
+
+    public void update(String name, boolean isTaken) {
+        this.name = name;
+        this.isTaken = isTaken;
+    }
 }
