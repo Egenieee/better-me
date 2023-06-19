@@ -29,6 +29,9 @@ public class BetterMe extends BaseTimeEntity {
     @OneToMany(mappedBy = "betterMe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todos> todos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "betterMe", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Nutrients> nutrients = new ArrayList<>();
+
     @OneToOne(mappedBy = "betterMe", orphanRemoval = true)
     private Sleeps sleeps;
 
@@ -77,7 +80,7 @@ public class BetterMe extends BaseTimeEntity {
         }
 
         if (habits.contains("nutrients")) {
-            this.habitsAndUrl.put("영양제 섭취 관리", "/study");
+            this.habitsAndUrl.put("영양제 섭취 관리", "/nutrients");
         }
 
         if (habits.contains("diary")) {
