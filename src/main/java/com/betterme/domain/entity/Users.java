@@ -32,7 +32,7 @@ public class Users extends BaseTimeEntity {
     @Column
     private String slogan;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "users", orphanRemoval = true)
     List<BetterMe> betterMes = new ArrayList<>();
 
     @Builder
