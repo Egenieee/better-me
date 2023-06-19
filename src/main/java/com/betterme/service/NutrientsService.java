@@ -2,6 +2,7 @@ package com.betterme.service;
 
 import com.betterme.domain.dto.nutrients.NutrientsResponseDto;
 import com.betterme.domain.dto.nutrients.NutrientsSaveRequestDto;
+import com.betterme.domain.dto.nutrients.NutrientsUpdateRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Nutrients;
 import com.betterme.repository.BetterMeRepository;
@@ -22,6 +23,11 @@ public class NutrientsService {
     private final NutrientsRepository nutrientsRepository;
 
     private final BetterMeRepository betterMeRepository;
+
+    private Nutrients findNutrients(Long nutrientsId) {
+        return nutrientsRepository.findById(nutrientsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Nutrients가 존재하지 않습니다. nutrients id = " + nutrientsId));
+    }
 
     private BetterMe findBetterMe(Long betterMeId) {
         return betterMeRepository.findById(betterMeId)
@@ -49,5 +55,16 @@ public class NutrientsService {
         }
 
         return nutrientsList;
+    }
+
+    public NutrientsUpdateRequestDto getUpdateRequestDto(Long nutrientsId) {
+        Nutrients nutrients = findNutrients(nutrientsId);
+
+        return NutrientsUpdateRequestDto.builder()
+                .betterMeId(nutrients.getBetterMe().getId())
+                .nutrientsId(nutrients.getId())
+                .name(nutrients.getName())
+                .isTaken(nutrients.isTaken())
+                .build();
     }
 }

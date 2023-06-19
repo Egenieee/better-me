@@ -2,11 +2,13 @@ package com.betterme.controller;
 
 import com.betterme.domain.dto.nutrients.NutrientsResponseDto;
 import com.betterme.domain.dto.nutrients.NutrientsSaveRequestDto;
+import com.betterme.domain.dto.nutrients.NutrientsUpdateRequestDto;
 import com.betterme.service.NutrientsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,5 +36,13 @@ public class NutrientsController {
         nutrientsService.save(requestDto);
 
         return "nutrients/nutrientsIndex";
+    }
+
+    @GetMapping("/nutrients/{nutrientsId}")
+    public String findById(@PathVariable Long nutrientsId, Model model) {
+        NutrientsUpdateRequestDto requestDto = nutrientsService.getUpdateRequestDto(nutrientsId);
+        model.addAttribute("nutrientsUpdateRequestDto", requestDto);
+
+        return "nutrients/updateNutrientsForm";
     }
 }
