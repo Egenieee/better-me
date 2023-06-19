@@ -52,13 +52,15 @@ public class BetterMeService {
     public boolean hasBetterMeOfToday(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
 
-        return hasBetterMeOfToday(users, today);
+        return users.getBetterMes().stream()
+                .anyMatch(betterMe -> betterMe.getCreatedDate().toLocalDate().isEqual(today));
     }
 
     public boolean hasBetterMeOfPast(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
 
-        return hasBetterMeOfPast(users, today);
+        return users.getBetterMes().stream()
+                .anyMatch(betterMe -> betterMe.getCreatedDate().toLocalDate().isBefore(today));
     }
 
     @Transactional
@@ -100,16 +102,6 @@ public class BetterMeService {
         betterMeRepository.delete(betterMe);
 
         log.info("BetterMe is delete with better me id = " + betterMeId);
-    }
-
-    public boolean hasBetterMeOfToday(Users users, LocalDate today) {
-        return users.getBetterMes().stream()
-                .anyMatch(betterMe -> betterMe.getCreatedDate().toLocalDate().isEqual(today));
-    }
-
-    public boolean hasBetterMeOfPast(Users users, LocalDate today) {
-        return users.getBetterMes().stream()
-                .anyMatch(betterMe -> betterMe.getCreatedDate().toLocalDate().isBefore(today));
     }
 
     public BetterMe getBetterMeOfToday(Users users, LocalDate today) {
