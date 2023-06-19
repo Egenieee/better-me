@@ -48,6 +48,12 @@ public class SleepsService {
         return betterMe.getSleeps().getId();
     }
 
+    public Long getBetterMeId(Long sleepsId) {
+        Sleeps sleeps = findSleeps(sleepsId);
+
+        return sleeps.getBetterMe().getId();
+    }
+
     @Transactional
     public Long save(SleepsSaveRequestDto requestDto) {
         BetterMe betterMe = findBetterMe(requestDto.getBetterMeId());
@@ -90,5 +96,14 @@ public class SleepsService {
         sleeps.update(sleepDateTime, wakeUpDateTime, requestDto.getIsSuccess());
 
         log.info("sleeps is updated with sleeps id = " + requestDto.getSleepsId());
+    }
+
+    @Transactional
+    public void delete(Long sleepsId) {
+        Sleeps sleeps = findSleeps(sleepsId);
+
+        sleepsRepository.delete(sleeps);
+
+        log.info("sleeps is deleted with sleeps id = " + sleepsId);
     }
 }

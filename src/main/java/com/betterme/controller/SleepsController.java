@@ -83,4 +83,14 @@ public class SleepsController {
 
         return "redirect:/sleeps/" + sleepsId;
     }
+
+    @DeleteMapping("/sleeps/{sleepsId}")
+    public String delete(@PathVariable Long sleepsId, RedirectAttributes redirectAttributes) {
+        Long betterMeId = sleepsService.getBetterMeId(sleepsId);
+        redirectAttributes.addAttribute("betterMeId", betterMeId);
+
+        sleepsService.delete(sleepsId);
+
+        return "redirect:/sleeps";
+    }
 }
