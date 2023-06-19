@@ -67,7 +67,7 @@ public class TodosController {
 
     @DeleteMapping("/todos/{todosId}")
     public String delete(@PathVariable Long todosId, RedirectAttributes redirectAttributes) {
-        Long betterMeId = todosService.findBetterMeId(todosId);
+        Long betterMeId = todosService.getBetterMeId(todosId);
         redirectAttributes.addAttribute("betterMeId", betterMeId);
 
         todosService.delete(todosId);

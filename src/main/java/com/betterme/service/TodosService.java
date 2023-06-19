@@ -34,7 +34,7 @@ public class TodosService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 Better Me가 존재하지 않습니다. better me = " + betterMeId));
     }
 
-    public Long findBetterMeId(Long todosId) {
+    public Long getBetterMeId(Long todosId) {
         Todos todos = findTodos(todosId);
 
         return todos.getBetterMe().getId();
