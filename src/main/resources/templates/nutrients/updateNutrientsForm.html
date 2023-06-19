@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div class="header">
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="/better-me">
+                <h3 class="text-muted">Better me</h3>
+            </a>
+            <a href="/better-me/today">
+                <h3 class="text-muted">today</h3>
+            </a>
+        </div>
+    </div>
+
+    <form th:action="@{/nutrients/{nutrientsId} (nutrientsId=${nutrientsUpdateRequestDto.getNutrientsId()})}"
+          th:object="${nutrientsUpdateRequestDto}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" id="todosId" name="todosId" th:value="${nutrientsUpdateRequestDto.nutrientsId}">
+        <input type="hidden" id="betterMeId" name="betterMeId" th:value="${nutrientsUpdateRequestDto.betterMeId}">
+
+        <div>
+            <h4 class="text-muted">영양제 수정</h4>
+            <br>
+        </div>
+        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+
+        <div class="form-group">
+            <label th:for="name">영양제</label>
+
+            <input type="text" th:field="*{name}" class="form-control" placeholder="오늘 섭취해야할 영양제 이름을 입력하세요 💊" required>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label th:for="complete">섭취 여부 check &nbsp;</label>
+            <input type="checkbox" th:checked="${nutrientsUpdateRequestDto.isTaken}" th:field="*{isTaken}"
+                   style="scale: 1.5">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 5px">
+            <a th:href="@{/nutrients (betterMeId=${nutrientsUpdateRequestDto.getBetterMeId()})}" role="button"
+               class="btn btn-secondary">취소</a>
+            <button type="submit" class="btn btn-primary">저장</button>
+            <a href="#" th:href="'javascript:deleteNutrients('+${nutrientsUpdateRequestDto.getNutrientsId()}+')'"
+               class="btn btn-danger">삭제</a>
+        </div>
+
+    </form>
+
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+</body>
+</html>
