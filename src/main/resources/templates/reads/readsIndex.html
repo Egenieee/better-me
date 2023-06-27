@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div class="header">
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="/better-me">
+                <h3 class="text-muted">Better me</h3>
+            </a>
+            <a href="/better-me/today">
+                <h3 class="text-muted">today</h3>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 10%; text-align: center">#</th>
+                <th style="width: 40%">책 이름</th>
+                <th style="width: 25%; text-align: center">읽기 시작한 페이지</th>
+                <th style="width: 25%; text-align: center">읽은 마지막 페이지</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reads, rowStat : ${readsList}">
+                <td th:text="${rowStat.count}" style="text-align: center"></td>
+                <td style="text-align: center">
+                    <a th:href="@{/reads/{readsId} (readsId=${reads.getReadsId()})}"
+                       th:text="${reads.getName()}"></a>
+                </td>
+                <td th:text="${reads.getFirstPage()}"></td>
+                <td th:text="${reads.getLastPage()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Button trigger modal -->
+    <div style="display: flex; justify-content: flex-end;">
+        <button type="button" id="addButton" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+            독서 기록 추가
+        </button>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5" id="exampleModalLabel">새로운 독서 기록 작성</h5>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+                        <form role="form" action="/reads/new" th:object="${readsSaveRequestDto}" method="post">
+                            <input type="hidden" id="betterMeId" name="betterMeId" th:value="${betterMeId}">
+
+                            <div class="form-group">
+                                <label th:for="name">책 이름</label>
+
+                                <input type="text" th:field="*{name}" class="form-control"
+                                       placeholder="오늘 읽은 책 이름을 입력하세요 📚" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label th:for="name">읽기 시작한 페이지</label>
+
+                                <input type="text" th:field="*{firstPage}" class="form-control"
+                                       placeholder="읽기 시작한 페이지 쪽수를 입력하세요" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label th:for="name">읽은 마지막 페이지</label>
+
+                                <input type="text" th:field="*{lastPage}" class="form-control"
+                                       placeholder="읽은 마지막 페이지 쪽수를 입력하세요" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label th:for="name">책 내용 요약</label>
+
+                                <input type="text" th:field="*{summary}" class="form-control"
+                                       placeholder="오늘 읽은 책 내용 요약을 입력하세요">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="submit" class="btn btn-primary" id="saveButton">추가하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+<script>
+    const saveButton = document.getElementById('saveButton');
+    const form = document.querySelector('form');
+
+    saveButton.addEventListener('click', function () {
+        // Form 데이터 가져오기
+        const form = document.querySelector('form');
+        const formData = new FormData(form);
+
+        // 폼 데이터 유효성 체크
+        const contentInput = form.querySelector('input[name="name"]');
+
+        if (contentInput.value.trim() === '') {
+            return;
+        }
+
+        // POST 요청 보내기
+        fetch('/reads/new', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+                    modal.hide();
+
+                    location.reload();
+                } else {
+                    console.error('독서 기록 추가 실패');
+                }
+            })
+            .catch(error => {
+                console.error('독서 기록 추가 실패', error);
+            });
+    });
+
+    // 엔터키 이벤트
+    form.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // 폼의 기본 동작 방지
+        }
+    });
+
+</script>
+</body>
+</html>
