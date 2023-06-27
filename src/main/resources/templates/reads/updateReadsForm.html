@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <form th:action="@{/reads/{readsId} (readsId=${readsUpdateRequestDto.readsId})}"
+    <form th:action="@{/reads/{readsId} (readsId=${readsUpdateRequestDto.getReadsId()})}"
           th:object="${readsUpdateRequestDto}" method="post">
         <input type="hidden" name="_method" value="put">
         <input type="hidden" id="readsId" name="readsId" th:value="${readsUpdateRequestDto.readsId}">
@@ -48,8 +48,7 @@
             <label th:for="lastPage">읽은 마지막 페이지 쪽수</label>
 
             <input type="text" th:field="*{lastPage}" class="form-control" placeholder="읽은 마지막 페이지 쪽수를 입력하세요"
-                   th:class="${#fields.hasErrors('lastPage')}? 'form-control fieldError' : 'form-control'" required
-            >
+                   th:class="${#fields.hasErrors('lastPage')}? 'form-control fieldError' : 'form-control'" required>
         </div>
 
         <div class="form-group">
