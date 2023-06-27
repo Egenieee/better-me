@@ -59,4 +59,14 @@ public class ReadsController {
 
         return "redirect:/reads";
     }
+
+    @DeleteMapping("/reads/{readsId}")
+    public String delete(@PathVariable Long readsId, RedirectAttributes redirectAttributes) {
+        Long betterMeId = readsService.getBetterMeId(readsId);
+        redirectAttributes.addAttribute("betterMeId", betterMeId);
+
+        readsService.delete(readsId);
+
+        return "redirect:/reads";
+    }
 }

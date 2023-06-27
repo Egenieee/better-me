@@ -34,6 +34,12 @@ public class ReadsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 Better Me가 존재하지 않습니다. better me id = " + betterMeId));
     }
 
+    public Long getBetterMeId(Long readsId) {
+        Reads reads = findReads(readsId);
+
+        return reads.getBetterMe().getId();
+    }
+
     public List<ReadsResponseDto> getReadsList(Long betterMeId) {
         BetterMe betterMe = findBetterMe(betterMeId);
 
@@ -78,5 +84,14 @@ public class ReadsService {
                 Integer.parseInt(requestDto.getLastPage()), requestDto.getSummary());
 
         log.info("Reads is updated with reads id = " + reads.getId());
+    }
+
+    @Transactional
+    public void delete(Long readsId) {
+        Reads reads = findReads(readsId);
+
+        readsRepository.delete(reads);
+
+        log.info("Reads is deleted with reads id = " + reads.getId());
     }
 }
