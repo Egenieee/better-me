@@ -46,6 +46,7 @@ public class ReadsService {
         return readsList;
     }
 
+    @Transactional
     public Long save(ReadsSaveRequestDto requestDto) {
         BetterMe betterMe = findBetterMe(requestDto.getBetterMeId());
 
