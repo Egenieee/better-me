@@ -10,6 +10,7 @@ import com.betterme.repository.ReadsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,5 +67,15 @@ public class ReadsService {
                 .lastPage(String.valueOf(reads.getLastPage()))
                 .summary(reads.getSummary())
                 .build();
+    }
+
+    @Transactional
+    public void update(Long readsId, ReadsUpdateRequestDto requestDto) {
+        Reads reads = findReads(readsId);
+
+        reads.update(requestDto.getName(), Integer.parseInt(requestDto.getFirstPage()),
+                Integer.parseInt(requestDto.getLastPage()), requestDto.getSummary());
+
+        log.info("Reads is updated with reads id = " + reads.getId());
     }
 }

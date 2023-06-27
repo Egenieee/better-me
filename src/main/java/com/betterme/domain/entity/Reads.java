@@ -38,4 +38,11 @@ public class Reads extends BaseTimeEntity {
         this.lastPage = lastPage;
         this.summary = summary;
     }
+
+    public void update(String name, int firstPage, int lastPage, String summary) {
+        this.name = name;
+        this.firstPage = firstPage;
+        this.lastPage = lastPage;
+        this.summary = summary;
+    }
 }

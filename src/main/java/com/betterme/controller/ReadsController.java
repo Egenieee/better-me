@@ -8,10 +8,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -45,5 +44,19 @@ public class ReadsController {
         model.addAttribute("readsUpdateRequestDto", requestDto);
 
         return "reads/updateReadsForm";
+    }
+
+    @PutMapping("/reads/{readsId}")
+    public String update(@PathVariable Long readsId, @Valid ReadsUpdateRequestDto requestDto, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (result.hasErrors()) {
+            return "reads/updateReadsForm";
+        }
+
+        readsService.update(readsId, requestDto);
+
+        redirectAttributes.addAttribute("betterMeId", requestDto.getBetterMeId());
+
+        return "redirect:/reads";
     }
 }
