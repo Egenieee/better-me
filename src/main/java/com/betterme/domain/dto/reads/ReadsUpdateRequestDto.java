@@ -14,11 +14,11 @@ public class ReadsUpdateRequestDto {
     private final String name;
 
     @NumberFormat
-    @Pattern(regexp = "^\\d+$", message = "숫자로 입력해주세요.")
+    @Pattern(regexp = "^\\d+$", message = "읽기 시작한 페이지는 숫자 형식으로 입력해주세요.")
     private final String firstPage;
 
     @NumberFormat
-    @Pattern(regexp = "^\\d+$", message = "숫자로 입력해주세요.")
+    @Pattern(regexp = "^\\d+$", message = "읽은 마지막 페이지는 숫자 형식으로 입력해주세요.")
     private final String lastPage;
 
     private final String summary;
