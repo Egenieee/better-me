@@ -2,12 +2,14 @@ package com.betterme.controller;
 
 import com.betterme.domain.dto.reads.ReadsResponseDto;
 import com.betterme.domain.dto.reads.ReadsSaveRequestDto;
+import com.betterme.domain.dto.reads.ReadsUpdateRequestDto;
 import com.betterme.service.ReadsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,5 +37,13 @@ public class ReadsController {
         readsService.save(requestDto);
 
         return "reads/readsIndex";
+    }
+
+    @GetMapping("/reads/{readsId}")
+    public String findById(@PathVariable Long readsId, Model model) {
+        ReadsUpdateRequestDto requestDto = readsService.getUpdateRequestDto(readsId);
+        model.addAttribute("readsUpdateRequestDto", requestDto);
+
+        return "reads/updateReadsForm";
     }
 }

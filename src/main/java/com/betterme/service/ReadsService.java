@@ -2,6 +2,7 @@ package com.betterme.service;
 
 import com.betterme.domain.dto.reads.ReadsResponseDto;
 import com.betterme.domain.dto.reads.ReadsSaveRequestDto;
+import com.betterme.domain.dto.reads.ReadsUpdateRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Reads;
 import com.betterme.repository.BetterMeRepository;
@@ -21,6 +22,11 @@ public class ReadsService {
     private final ReadsRepository readsRepository;
 
     private final BetterMeRepository betterMeRepository;
+
+    private Reads findReads(Long readsId) {
+        return readsRepository.findById(readsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Reads가 존재하지 않습니다. reads id = " + readsId));
+    }
 
     private BetterMe findBetterMe(Long betterMeId) {
         return betterMeRepository.findById(betterMeId)
@@ -47,5 +53,18 @@ public class ReadsService {
         log.info("Reads is saved with reads id = " + savedReadsId);
 
         return savedReadsId;
+    }
+
+    public ReadsUpdateRequestDto getUpdateRequestDto(Long readsId) {
+        Reads reads = findReads(readsId);
+
+        return ReadsUpdateRequestDto.builder()
+                .betterMeId(reads.getBetterMe().getId())
+                .readsId(reads.getId())
+                .name(reads.getName())
+                .firstPage(String.valueOf(reads.getFirstPage()))
+                .lastPage(String.valueOf(reads.getLastPage()))
+                .summary(reads.getSummary())
+                .build();
     }
 }
