@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div class="header">
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="/better-me">
+                <h3 class="text-muted">Better me</h3>
+            </a>
+            <a href="/better-me/today">
+                <h3 class="text-muted">today</h3>
+            </a>
+        </div>
+    </div>
+
+    <form th:action="@{/reads/{readsId} (readsId=${readsUpdateRequestDto.readsId})}"
+          th:object="${readsUpdateRequestDto}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" id="readsId" name="readsId" th:value="${readsUpdateRequestDto.readsId}">
+        <input type="hidden" id="betterMeId" name="betterMeId" th:value="${readsUpdateRequestDto.betterMeId}">
+
+        <div>
+            <h4 class="text-muted">독서 기록 수정</h4>
+            <br>
+        </div>
+        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+
+        <div class="form-group">
+            <label th:for="name">책 제목</label>
+
+            <input type="text" th:field="*{name}" class="form-control" placeholder="오늘 읽은 책 이름을 입력하세요 📚" required>
+        </div>
+
+        <div class="form-group">
+            <label th:for="firstPage">읽기 시작한 페이지 쪽수</label>
+
+            <input type="text" th:field="*{firstPage}" class="form-control" placeholder="읽기 시작한 페이지 쪽수를 입력하세요"
+                   th:class="${#fields.hasErrors('firstPage')}? 'form-control fieldError' : 'form-control'" required>
+        </div>
+
+        <div class="form-group">
+            <label th:for="lastPage">읽은 마지막 페이지 쪽수</label>
+
+            <input type="text" th:field="*{lastPage}" class="form-control" placeholder="읽은 마지막 페이지 쪽수를 입력하세요"
+                   th:class="${#fields.hasErrors('lastPage')}? 'form-control fieldError' : 'form-control'" required
+            >
+        </div>
+
+        <div class="form-group">
+            <label th:for="summary">책 요약</label>
+
+            <input type="text" th:field="*{summary}" class="form-control" placeholder="오늘 읽은 책 내용 요약을 입력하세요" required>
+        </div>
+
+        <br>
+
+        <div style="display: flex; justify-content: flex-end; gap: 5px">
+            <a th:href="@{/reads (betterMeId=${readsUpdateRequestDto.getBetterMeId()})}" role="button"
+               class="btn btn-secondary">취소</a>
+            <button type="submit" class="btn btn-primary">저장</button>
+        </div>
+
+    </form>
+
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+</body>
+</html>
