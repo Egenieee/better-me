@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <div class="header">
+        <br>
+        <div style="display: flex; justify-content: space-between;">
+            <a href="/better-me">
+                <h3 class="text-muted">Better me</h3>
+            </a>
+            <a href="/better-me/today">
+                <h3 class="text-muted">today</h3>
+            </a>
+        </div>
+    </div>
+
+    <form th:action="@{/workouts/{workoutsId} (workoutsId=${workoutsUpdateRequestDto.workoutsId})}"
+          th:object="${workoutsUpdateRequestDto}" method="post">
+        <input type="hidden" name="_method" value="put">
+        <input type="hidden" id="workoutsId" name="workoutsId" th:value="${workoutsUpdateRequestDto.workoutsId}">
+        <input type="hidden" id="betterMeId" name="betterMeId" th:value="${workoutsUpdateRequestDto.betterMeId}">
+
+        <div>
+            <h4 class="text-muted">오늘 운동 수정</h4>
+            <br>
+        </div>
+        <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
+
+        <div class="form-group">
+            <label th:for="name">오늘 할 운동</label>
+
+            <input type="text" th:field="*{name}" class="form-control" placeholder="오늘 할 운동을 입력하세요 🏃🏻" required>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label th:for="details">세부 내용</label>
+
+            <input type="text" th:field="*{details}" class="form-control" placeholder="운동 세부 내용을 입력하세요 🗒️ 예) 시간, 세트 수">
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label th:for="complete">완료 여부 check &nbsp;</label>
+            <input type="checkbox" th:checked="${workoutsUpdateRequestDto.isCompleted}" th:field="*{isCompleted}"
+                   style="scale: 1.5">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 5px">
+            <a th:href="@{/workouts (betterMeId=${workoutsUpdateRequestDto.getBetterMeId()})}" role="button"
+               class="btn btn-secondary">취소</a>
+            <button type="submit" class="btn btn-primary">저장</button>
+        </div>
+
+    </form>
+
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+</body>
+</html>
