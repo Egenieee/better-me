@@ -69,7 +69,7 @@ public class TodosService {
         return TodosUpdateRequestDto.builder()
                 .todosId(todos.getId())
                 .content(todos.getContent())
-                .isComplete(todos.isCompleted())
+                .isCompleted(todos.isCompleted())
                 .betterMeId(todos.getBetterMe().getId())
                 .build();
     }
@@ -77,7 +77,7 @@ public class TodosService {
     @Transactional
     public void update(Long todosId, TodosUpdateRequestDto requestDto) {
         Todos todos = findTodos(todosId);
-        todos.update(requestDto.getContent(), requestDto.getIsComplete());
+        todos.update(requestDto.getContent(), requestDto.getIsCompleted());
 
         log.info("Todos is update withed todos id = " + todosId);
     }

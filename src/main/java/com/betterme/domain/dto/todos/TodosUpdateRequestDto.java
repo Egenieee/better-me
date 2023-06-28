@@ -13,13 +13,13 @@ public class TodosUpdateRequestDto {
     @Length(min = 1, message = "할 일을 입력하세요.")
     private final String content;
 
-    private final Boolean isComplete;
+    private final Boolean isCompleted;
 
     @Builder
-    public TodosUpdateRequestDto(Long todosId, Long betterMeId, String content, boolean isComplete) {
+    public TodosUpdateRequestDto(Long todosId, Long betterMeId, String content, boolean isCompleted) {
         this.todosId = todosId;
         this.betterMeId = betterMeId;
         this.content = content;
-        this.isComplete = isComplete;
+        this.isCompleted = isCompleted;
     }
 }
