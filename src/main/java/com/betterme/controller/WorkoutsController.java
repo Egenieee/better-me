@@ -7,10 +7,8 @@ import com.betterme.service.WorkoutsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -44,6 +42,15 @@ public class WorkoutsController {
         model.addAttribute("workoutsUpdateRequestDto", requestDto);
 
         return "workouts/updateWorkoutsForm";
+    }
+
+    @PutMapping("/workouts/{workoutsId}")
+    public String update(@PathVariable Long workoutsId, WorkoutsUpdateRequestDto requestDto, RedirectAttributes redirectAttributes) {
+        workoutsService.update(workoutsId, requestDto);
+
+        redirectAttributes.addAttribute("betterMeId", requestDto.getBetterMeId());
+
+        return "redirect:/workouts";
     }
 
 }

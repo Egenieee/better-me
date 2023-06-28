@@ -68,4 +68,13 @@ public class WorkoutsService {
                 .isCompleted(workouts.isCompleted())
                 .build();
     }
+
+    @Transactional
+    public void update(Long workoutsId, WorkoutsUpdateRequestDto requestDto) {
+        Workouts workouts = findWorkouts(workoutsId);
+
+        workouts.update(requestDto.getName(), requestDto.getDetails(), requestDto.getIsCompleted());
+
+        log.info("Workouts is updated with workouts id = " + workouts.getId());
+    }
 }

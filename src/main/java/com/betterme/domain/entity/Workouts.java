@@ -34,4 +34,10 @@ public class Workouts extends BaseTimeEntity {
         this.details = details;
         this.isCompleted = false;
     }
+
+    public void update(String name, String details, boolean isCompleted) {
+        this.name = name;
+        this.details = details;
+        this.isCompleted = isCompleted;
+    }
 }
