@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body style="padding: 0 !important;">
+<!-- 네비게이션 바 -->
+<nav th:replace="~{fragments/nevbar}"></nav>
+
+<div class="container">
+    <h1>&nbsp</h1>
+    <div class="jumbotron" style="background-color: lavenderblush !important;">
+        <h3 style="color: #ed969e">오늘의 Better Me가 존재하지 않습니다.</h3>
+        <br>
+        <p>
+            <a class="btn btn-lg text-black-50" style="background-color: #f8d7da" href="/">홈으로</a>
+            <a class="btn btn-lg text-black-50" style="background-color: #f5c6cb" href="/better-me/new">Better Me
+                생성하기</a>
+        </p>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+</body>
+</html>
