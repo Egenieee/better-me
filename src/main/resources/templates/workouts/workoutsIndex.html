@@ -24,7 +24,8 @@
             <thead>
             <tr>
                 <th style="width: 15%; text-align: center">완료 여부</th>
-                <th style="width: 85%">오늘 할 운동</th>
+                <th style="width: 50%">오늘 할 운동</th>
+                <th style="width: 35%; text-align: center">세부 사항</th>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +38,7 @@
                     <a th:href="@{/workouts/{workoutsId} (workoutsId=${workout.getWorkoutsId()})}"
                        th:text="${workout.getName()}"></a>
                 </td>
+                <td style="text-align: center" th:text="${workout.details}"></td>
             </tr>
             </tbody>
         </table>
@@ -74,7 +76,7 @@
                                 <label th:for="content">세부 내용</label>
 
                                 <input type="text" th:field="*{details}" class="form-control"
-                                       placeholder="운동 세부 내용을 입력하세요 🗒️">
+                                       placeholder="운동 세부 내용을 입력하세요 🗒️ 예) 시간, 세트 수">
                             </div>
                         </form>
                     </div>
@@ -107,7 +109,7 @@
         }
 
         // POST 요청 보내기
-        fetch('/todos/new', {
+        fetch('/workouts/new', {
             method: 'POST',
             body: formData
         })
