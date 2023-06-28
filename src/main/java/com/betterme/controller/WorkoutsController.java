@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -24,6 +25,13 @@ public class WorkoutsController {
         model.addAttribute("workoutsList", workoutsList);
         model.addAttribute("betterMeId", betterMeId);
         model.addAttribute("workoutsSaveRequestDto", new WorkoutsSaveRequestDto());
+
+        return "workouts/workoutsIndex";
+    }
+
+    @PostMapping("/workouts/new")
+    public String save(WorkoutsSaveRequestDto requestDto) {
+        workoutsService.save(requestDto);
 
         return "workouts/workoutsIndex";
     }

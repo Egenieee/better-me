@@ -1,16 +1,19 @@
 package com.betterme.service;
 
 import com.betterme.domain.dto.workouts.WorkoutsResponseDto;
+import com.betterme.domain.dto.workouts.WorkoutsSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Workouts;
 import com.betterme.repository.BetterMeRepository;
 import com.betterme.repository.WorkoutsRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class WorkoutsService {
@@ -34,5 +37,15 @@ public class WorkoutsService {
         }
 
         return workoutsList;
+    }
+
+    public Long save(WorkoutsSaveRequestDto requestDto) {
+        BetterMe betterMe = findBetterMe(requestDto.getBetterMeId());
+
+        Long workoutsId = workoutsRepository.save(requestDto.toEntity(betterMe)).getId();
+
+        log.info("Workouts is saved with workouts id = " + workoutsId);
+
+        return workoutsId;
     }
 }
