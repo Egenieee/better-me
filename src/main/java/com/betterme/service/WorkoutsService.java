@@ -65,6 +65,7 @@ public class WorkoutsService {
                 .betterMeId(workouts.getBetterMe().getId())
                 .name(workouts.getName())
                 .details(workouts.getDetails())
+                .isCompleted(workouts.isCompleted())
                 .build();
     }
 }
