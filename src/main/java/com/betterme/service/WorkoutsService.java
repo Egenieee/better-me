@@ -2,6 +2,7 @@ package com.betterme.service;
 
 import com.betterme.domain.dto.workouts.WorkoutsResponseDto;
 import com.betterme.domain.dto.workouts.WorkoutsSaveRequestDto;
+import com.betterme.domain.dto.workouts.WorkoutsUpdateRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Workouts;
 import com.betterme.repository.BetterMeRepository;
@@ -9,6 +10,7 @@ import com.betterme.repository.WorkoutsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,11 @@ public class WorkoutsService {
     private final WorkoutsRepository workoutsRepository;
 
     private final BetterMeRepository betterMeRepository;
+
+    private Workouts findWorkouts(Long workoutsId) {
+        return workoutsRepository.findById(workoutsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 Workouts이 존재하지 않습니다. workouts id = " + workoutsId));
+    }
 
     private BetterMe findBetterMe(Long betterMeId) {
         return betterMeRepository.findById(betterMeId)
@@ -39,6 +46,7 @@ public class WorkoutsService {
         return workoutsList;
     }
 
+    @Transactional
     public Long save(WorkoutsSaveRequestDto requestDto) {
         BetterMe betterMe = findBetterMe(requestDto.getBetterMeId());
 
@@ -47,5 +55,16 @@ public class WorkoutsService {
         log.info("Workouts is saved with workouts id = " + workoutsId);
 
         return workoutsId;
+    }
+
+    public WorkoutsUpdateRequestDto getUpdateRequestDto(Long workoutsId) {
+        Workouts workouts = findWorkouts(workoutsId);
+
+        return WorkoutsUpdateRequestDto.builder()
+                .workoutsId(workouts.getId())
+                .betterMeId(workouts.getBetterMe().getId())
+                .name(workouts.getName())
+                .details(workouts.getDetails())
+                .build();
     }
 }
