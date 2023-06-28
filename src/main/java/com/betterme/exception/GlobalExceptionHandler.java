@@ -14,4 +14,11 @@ public class GlobalExceptionHandler {
 
         return "users/usersJoinErrorPage";
     }
+
+    @ExceptionHandler({NotFountBetterMeOfToday.class})
+    public String notFountBetterMeOfTodayException(NotFountBetterMeOfToday exception) {
+        log.warn("오늘의 Better Me가 존재하지 않습니다.");
+
+        return "betterme/notFoundBetterMeOfTodayErrorPage";
+    }
 }

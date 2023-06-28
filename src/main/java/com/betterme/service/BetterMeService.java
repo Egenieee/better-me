@@ -5,6 +5,7 @@ import com.betterme.domain.dto.betterme.BetterMeResponseDto;
 import com.betterme.domain.dto.betterme.BetterMeSaveRequestDto;
 import com.betterme.domain.entity.BetterMe;
 import com.betterme.domain.entity.Users;
+import com.betterme.exception.NotFountBetterMeOfToday;
 import com.betterme.repository.BetterMeRepository;
 import com.betterme.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +86,7 @@ public class BetterMeService {
 
     public BetterMeResponseDto getBetterMeOfToday(String usersName, LocalDate today) {
         Users users = findUsersByUsersName(usersName);
-        BetterMe betterMe = getBetterMeOfToday(users, today);
+        BetterMe betterMe = findBetterMeOfToday(users, today);
 
         return new BetterMeResponseDto(betterMe);
     }
@@ -104,11 +105,11 @@ public class BetterMeService {
         log.info("BetterMe is delete with better me id = " + betterMeId);
     }
 
-    public BetterMe getBetterMeOfToday(Users users, LocalDate today) {
+    public BetterMe findBetterMeOfToday(Users users, LocalDate today) {
         return users.getBetterMes().stream()
                 .filter(betterMe -> betterMe.getCreatedDate().toLocalDate().isEqual(today))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new NotFountBetterMeOfToday("해당 Better Me가 존재하지 않습니다."));
     }
 
     public List<BetterMeOfPastResponseDto> getBetterMeOfPastList(Users users) {
