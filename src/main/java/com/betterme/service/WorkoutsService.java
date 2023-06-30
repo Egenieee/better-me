@@ -46,6 +46,12 @@ public class WorkoutsService {
         return workoutsList;
     }
 
+    public Long getBetterMeId(Long workoutsId) {
+        Workouts workouts = findWorkouts(workoutsId);
+
+        return workouts.getBetterMe().getId();
+    }
+
     @Transactional
     public Long save(WorkoutsSaveRequestDto requestDto) {
         BetterMe betterMe = findBetterMe(requestDto.getBetterMeId());
@@ -76,5 +82,14 @@ public class WorkoutsService {
         workouts.update(requestDto.getName(), requestDto.getDetails(), requestDto.getIsCompleted());
 
         log.info("Workouts is updated with workouts id = " + workouts.getId());
+    }
+
+    @Transactional
+    public void delete(Long workoutsId) {
+        Workouts workouts = findWorkouts(workoutsId);
+
+        workoutsRepository.delete(workouts);
+
+        log.info("Workouts is deleted with workouts id = " + workoutsId);
     }
 }

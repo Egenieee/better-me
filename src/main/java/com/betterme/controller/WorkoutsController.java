@@ -53,4 +53,14 @@ public class WorkoutsController {
         return "redirect:/workouts";
     }
 
+    @DeleteMapping("/workouts/{workoutsId}")
+    public String delete(@PathVariable Long workoutsId, RedirectAttributes redirectAttributes) {
+        Long betterMeId = workoutsService.getBetterMeId(workoutsId);
+        workoutsService.delete(workoutsId);
+
+        redirectAttributes.addAttribute("betterMeId", betterMeId);
+
+        return "redirect:/workouts";
+    }
+
 }
