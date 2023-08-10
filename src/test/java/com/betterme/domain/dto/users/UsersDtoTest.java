@@ -4,6 +4,9 @@ import com.betterme.domain.entity.Users;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -109,6 +112,9 @@ public class UsersDtoTest {
                     .slogan(userSlogan)
                     .password(userPassword)
                     .build();
+
+            ReflectionTestUtils.setField(users, "createdDate", LocalDateTime.now());
+            ReflectionTestUtils.setField(users, "modifiedDate", LocalDateTime.now());
 
             // when
             UsersResponseDto responseDto = UsersResponseDto.builder()

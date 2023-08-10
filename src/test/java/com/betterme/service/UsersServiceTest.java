@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -98,6 +99,8 @@ public class UsersServiceTest {
             Users users = getUsers();
 
             ReflectionTestUtils.setField(users, "id", 2L);
+            ReflectionTestUtils.setField(users, "createdDate", LocalDateTime.now());
+            ReflectionTestUtils.setField(users, "modifiedDate", LocalDateTime.now());
 
             Mockito.when(usersRepository.save(Mockito.any(Users.class))).thenReturn(users);
             Mockito.when(usersRepository.findByUsersName(usersName)).thenReturn(Optional.of(users));
@@ -144,6 +147,8 @@ public class UsersServiceTest {
             Users users = getUsers();
 
             ReflectionTestUtils.setField(users, "id", 4L);
+            ReflectionTestUtils.setField(users, "createdDate", LocalDateTime.now());
+            ReflectionTestUtils.setField(users, "modifiedDate", LocalDateTime.now());
 
             Mockito.when(usersRepository.save(Mockito.any(Users.class))).thenReturn(users);
             Mockito.when(usersRepository.findById(users.getId())).thenReturn(Optional.of(users));
