@@ -60,7 +60,7 @@ public class BetterMeController {
         Map<String, String> map = new LinkedHashMap<>();
 
         map.put("study", "공부 기록");
-        map.put("reads", "독서 기록");
+        map.put("reading", "독서 기록");
         map.put("sleeps", "수면 기록");
         map.put("workouts", "운동 기록");
         map.put("todos", "할일 기록");

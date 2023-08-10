@@ -1,7 +1,7 @@
 package com.betterme.domain.dto.reads;
 
 import com.betterme.domain.entity.BetterMe;
-import com.betterme.domain.entity.Reads;
+import com.betterme.domain.entity.Reading;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import org.springframework.format.annotation.NumberFormat;
 
 @Getter
 @Setter
-public class ReadsSaveRequestDto {
+public class ReadingSaveRequestDto {
 
     private Long betterMeId;
 
@@ -27,8 +27,8 @@ public class ReadsSaveRequestDto {
     @Length(max = 500)
     private String summary;
 
-    public Reads toEntity(BetterMe betterMe) {
-        return Reads.builder()
+    public Reading toEntity(BetterMe betterMe) {
+        return Reading.builder()
                 .betterMe(betterMe)
                 .name(name)
                 .firstPage(Integer.parseInt(firstPage))

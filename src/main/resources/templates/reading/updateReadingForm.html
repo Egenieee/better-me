@@ -19,11 +19,11 @@
         </div>
     </div>
 
-    <form th:action="@{/reads/{readsId} (readsId=${readsUpdateRequestDto.getReadsId()})}"
-          th:object="${readsUpdateRequestDto}" method="post">
+    <form th:action="@{/reading/{readsId} (readsId=${readingUpdateRequestDto.getReadingId()})}"
+          th:object="${readingUpdateRequestDto}" method="post">
         <input type="hidden" name="_method" value="put">
-        <input type="hidden" id="readsId" name="readsId" th:value="${readsUpdateRequestDto.readsId}">
-        <input type="hidden" id="betterMeId" name="betterMeId" th:value="${readsUpdateRequestDto.betterMeId}">
+        <input type="hidden" id="readsId" name="readsId" th:value="${readingUpdateRequestDto.getReadingId}">
+        <input type="hidden" id="betterMeId" name="betterMeId" th:value="${readingUpdateRequestDto.betterMeId}">
 
         <div>
             <h4 class="text-muted">독서 기록 수정</h4>
@@ -60,10 +60,10 @@
         <br>
 
         <div style="display: flex; justify-content: flex-end; gap: 5px">
-            <a th:href="@{/reads (betterMeId=${readsUpdateRequestDto.getBetterMeId()})}" role="button"
+            <a th:href="@{/reading (betterMeId=${readingUpdateRequestDto.getBetterMeId()})}" role="button"
                class="btn btn-secondary">취소</a>
             <button type="submit" class="btn btn-primary">저장</button>
-            <a href="#" th:href="'javascript:deleteReads('+${readsUpdateRequestDto.getReadsId()}+')'"
+            <a href="#" th:href="'javascript:deleteReads('+${readingUpdateRequestDto.getReadingId()}+')'"
                class="btn btn-danger">삭제</a>
         </div>
 
@@ -76,11 +76,11 @@
 <script>
 
     // 할 일 삭제 함수
-    function deleteReads(readsId) {
+    function deleteReads(readingId) {
         if (confirm('정말로 독서 기록을 삭제하시겠습니까?')) {
             var form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("action", "/reads/" + readsId);
+            form.setAttribute("action", "/reading/" + readingId);
 
             // DELETE 메서드 전송을 위한 숨겨진 필드 생성
             var methodField = document.createElement('input');

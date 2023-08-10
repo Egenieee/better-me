@@ -6,10 +6,10 @@ import lombok.Getter;
 import org.springframework.format.annotation.NumberFormat;
 
 @Getter
-public class ReadsUpdateRequestDto {
+public class ReadingUpdateRequestDto {
 
     private final Long betterMeId;
-    private final Long readsId;
+    private final Long readingId;
 
     private final String name;
 
@@ -24,9 +24,9 @@ public class ReadsUpdateRequestDto {
     private final String summary;
 
     @Builder
-    public ReadsUpdateRequestDto(Long readsId, Long betterMeId, String name, String firstPage, String lastPage, String summary) {
+    public ReadingUpdateRequestDto(Long readingId, Long betterMeId, String name, String firstPage, String lastPage, String summary) {
         this.betterMeId = betterMeId;
-        this.readsId = readsId;
+        this.readingId = readingId;
         this.name = name;
         this.firstPage = firstPage;
         this.lastPage = lastPage;

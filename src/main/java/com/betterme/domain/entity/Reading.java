@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Reads extends BaseTimeEntity {
+public class Reading extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Reads extends BaseTimeEntity {
     private String summary;
 
     @Builder
-    public Reads(BetterMe betterMe, String name, int firstPage, int lastPage, String summary) {
+    public Reading(BetterMe betterMe, String name, int firstPage, int lastPage, String summary) {
         this.betterMe = betterMe;
         this.name = name;
         this.firstPage = firstPage;
