@@ -57,9 +57,9 @@ public class BetterMe extends BaseTimeEntity {
     }
 
     public void setHabitsAndUrl(List<String> habits) {
-        if (habits.contains("study")) {
-            this.habitsAndUrl.put("공부 기록 관리", "/study");
-        }
+//        if (habits.contains("study")) {
+//            this.habitsAndUrl.put("공부 기록 관리", "/study");
+//        }
 
         if (habits.contains("reading")) {
             this.habitsAndUrl.put("독서 기록 관리", "/reading");
@@ -77,20 +77,20 @@ public class BetterMe extends BaseTimeEntity {
             this.habitsAndUrl.put("할일 기록 관리", "/todos");
         }
 
-        if (habits.contains("diets")) {
-            this.habitsAndUrl.put("식단 기록 관리", "/diets");
-        }
-
-        if (habits.contains("waters")) {
-            this.habitsAndUrl.put("수분 섭취 관리", "/waters");
-        }
+//        if (habits.contains("diets")) {
+//            this.habitsAndUrl.put("식단 기록 관리", "/diets");
+//        }
+//
+//        if (habits.contains("waters")) {
+//            this.habitsAndUrl.put("수분 섭취 관리", "/waters");
+//        }
 
         if (habits.contains("nutrients")) {
             this.habitsAndUrl.put("영양제 섭취 관리", "/nutrients");
         }
 
-        if (habits.contains("diary")) {
-            this.habitsAndUrl.put("일기 관리", "/diary");
-        }
+//        if (habits.contains("diary")) {
+//            this.habitsAndUrl.put("일기 관리", "/diary");
+//        }
     }
 }

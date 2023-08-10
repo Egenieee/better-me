@@ -59,15 +59,15 @@ public class BetterMeController {
     private Map<String, String> habits() {
         Map<String, String> map = new LinkedHashMap<>();
 
-        map.put("study", "공부 기록");
+//        map.put("study", "공부 기록");
         map.put("reading", "독서 기록");
         map.put("sleeps", "수면 기록");
         map.put("workouts", "운동 기록");
         map.put("todos", "할일 기록");
-        map.put("diets", "식단 기록");
-        map.put("waters", "수분 섭취 기록");
+//        map.put("diets", "식단 기록");
+//        map.put("waters", "수분 섭취 기록");
         map.put("nutrients", "영영제 섭취 기록");
-        map.put("diary", "일기 작성");
+//        map.put("diary", "일기 작성");
 
         return map;
     }
