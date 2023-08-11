@@ -46,7 +46,7 @@ public class ReadingController {
         return "reading/updateReadingForm";
     }
 
-    @PutMapping("/reads/{readingId}")
+    @PutMapping("/reading/{readingId}")
     public String update(@PathVariable Long readingId, @Valid ReadingUpdateRequestDto requestDto, BindingResult result, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -60,7 +60,7 @@ public class ReadingController {
         return "redirect:/reading";
     }
 
-    @DeleteMapping("/reads/{readingId}")
+    @DeleteMapping("/reading/{readingId}")
     public String delete(@PathVariable Long readingId, RedirectAttributes redirectAttributes) {
         Long betterMeId = readingService.getBetterMeId(readingId);
         redirectAttributes.addAttribute("betterMeId", betterMeId);
