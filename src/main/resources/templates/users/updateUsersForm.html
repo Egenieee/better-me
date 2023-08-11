@@ -58,26 +58,28 @@
 </body>
 <script>
     function deleteUsers(id) {
-        var form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "/users/" + id);
+        if (confirm('정말로 회원을 탈퇴하시겠습니까?')) {
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/users/" + id);
 
-        // DELETE 메서드 전송을 위한 숨겨진 필드 생성
-        var methodField = document.createElement('input');
-        methodField.setAttribute("type", "hidden");
-        methodField.setAttribute("name", "_method");
-        methodField.setAttribute("value", "DELETE");
+            // DELETE 메서드 전송을 위한 숨겨진 필드 생성
+            var methodField = document.createElement('input');
+            methodField.setAttribute("type", "hidden");
+            methodField.setAttribute("name", "_method");
+            methodField.setAttribute("value", "DELETE");
 
-        // 폼에 숨겨진 필드 추가
-        form.appendChild(methodField);
+            // 폼에 숨겨진 필드 추가
+            form.appendChild(methodField);
 
-        // 폼을 문서에 추가
-        document.body.appendChild(form);
+            // 폼을 문서에 추가
+            document.body.appendChild(form);
 
-        // 폼 전송
-        form.submit();
+            // 폼 전송
+            form.submit();
 
-        alert('회원 탈퇴가 완료되었습니다.');
+            alert('회원 탈퇴가 완료되었습니다.');
+        }
     }
 </script>
 </html>
