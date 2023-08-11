@@ -19,10 +19,20 @@ public class SleepsUpdateRequestDto {
 
     private Boolean isSuccess;
 
-    private String sleepDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    private String sleepDate;
     private String sleepTime;
     private String wakeUpDate;
     private String wakeUpTime;
+
+    @AssertTrue(message = "취침 날짜의 형식이 잘못되었습니다. (예: 2024-01-01)")
+    public boolean isSleepTimeDateValidFormat() {
+        try {
+            LocalDate sleepDate = LocalDate.parse(getSleepDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
 
     @AssertTrue(message = "취침 시간의 형식이 잘못되었습니다. (예: 22:00)")
     public boolean isSleepTimeValidFormat() {

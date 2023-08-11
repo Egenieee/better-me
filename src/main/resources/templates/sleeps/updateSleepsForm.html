@@ -35,7 +35,8 @@
 
         <div class="form-group">
             <label th:for="sleepTime">취침 날짜</label>
-            <input type="text" class="form-control" th:field="*{sleepDate}" readonly>
+            <input type="text" th:field="*{sleepDate}" class="form-control" placeholder="취침 날짜를 입력해주세요. 예시) 2024-01-01"
+                   th:class="${#fields.hasErrors('sleepDate')}? 'form-control fieldError' : 'form-control'" required>
 
         </div>
         <div class="form-group">
