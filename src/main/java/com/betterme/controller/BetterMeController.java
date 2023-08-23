@@ -109,7 +109,7 @@ public class BetterMeController {
 
         model.addAttribute("betterMeResponseDto", responseDto);
 
-        return "/betterme/betterMeOfPast";
+        return "betterme/betterMeOfPast";
     }
 
 
